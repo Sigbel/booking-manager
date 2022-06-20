@@ -1,0 +1,62 @@
+/* Elementos do login */
+
+#btn_login {
+    background-color: #f38d29;
+    color: rgba(255, 255, 255, 200);
+    border-radius: 5px;
+}
+#btn_login:pressed {
+    padding-left: 5px;
+    padding-top: 5px;
+    background-color: #ecb177;
+    background-position: calc(100%-10px) center;
+}
+#btn_login:hover {
+    background-color: #ecb177;
+}
+
+#btn_recupera {
+    background-color: #0000ffff;
+}
+#btn_recupera:hover {
+    color: #4b4b4b;
+    background-color: #0000ffff;
+}
+
+/* Colunas */
+
+#columnView {
+    background-color: #0000ffff;
+}
+#columnView_2 {
+    background-color: qlineargradient(
+        spread: pad,
+        x1: 0,
+        y1: 0.131,
+        x2: 0,
+        y2: 1,
+        stop: 0 rgba(252, 132, 11, 255),
+        stop: 1 rgba(227, 197, 106, 255)
+    );
+    border-radius: 8px;
+}
+#columnView_3 {
+    border-radius:8px;
+}
+
+/* Campos de Login */
+
+#scr_senha {
+    background-color:rgba(0,0,0,0);
+    border:2px solid rgba(0,0,0,0);
+    border-bottom-color:rgba(46,82,101,200);
+    color:rgb(0,0,0);
+    padding-bottom:7px;
+}
+#scr_usuario {
+    background-color:rgba(0,0,0,0);
+    border:2px solid rgba(0,0,0,0);
+    border-bottom-color:rgba(46,82,101,200);
+    color:rgb(0,0,0);
+    padding-bottom:7px;
+}

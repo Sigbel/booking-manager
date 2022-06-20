@@ -1,0 +1,119 @@
+/* Elementos do Menu Principal */
+#btn_cliente {
+  background-color: #00ffffff;
+  color: rgba(255, 255, 255, 200);
+  border-radius: 5px;
+  text-align: left;
+}
+#btn_cliente:pressed {
+  padding-left: 5px;
+  padding-top: 5px;
+  background-color: rgba(255, 107, 107, 255);
+  background-position: calc(100%-10px) center;
+}
+#btn_cliente:hover {
+  background-color: rgba(255, 107, 107, 255);
+}
+#btn_reservas {
+  background-color: #00ffffff;
+  color: rgba(255, 255, 255, 200);
+  border-radius: 5px;
+  text-align: left;
+}
+#btn_reservas:pressed {
+  padding-left: 5px;
+  padding-top: 5px;
+  background-color: rgba(255, 107, 107, 255);
+  background-position: calc(100%-10px) center;
+}
+#btn_reservas:hover {
+  background-color: rgba(255, 107, 107, 255);
+}
+#btn_cadastro_h {
+  background-color: #00ffffff;
+  color: rgba(255, 255, 255, 200);
+  border-radius: 5px;
+  text-align: left;
+}
+#btn_cadastro_h:pressed {
+  padding-left: 5px;
+  padding-top: 5px;
+  background-color: rgba(255, 107, 107, 255);
+  background-position: calc(100%-10px) center;
+}
+#btn_cadastro_h:hover {
+  background-color: rgba(255, 107, 107, 255);
+}
+#btn_checkin {
+  background-color: #00ffffff;
+  color: rgba(255, 255, 255, 200);
+  border-radius: 5px;
+  text-align: left;
+}
+#btn_checkin:pressed {
+  padding-left: 5px;
+  padding-top: 5px;
+  background-color: rgba(255, 107, 107, 255);
+  background-position: calc(100%-10px) center;
+}
+#btn_checkin:hover {
+  background-color: rgba(255, 107, 107, 255);
+}
+#btn_checkout {
+  background-color: #00ffffff;
+  color: rgba(255, 255, 255, 200);
+  border-radius: 5px;
+  text-align: left;
+}
+#btn_checkout:pressed {
+  padding-left: 5px;
+  padding-top: 5px;
+  background-color: rgba(255, 107, 107, 255);
+  background-position: calc(100%-10px) center;
+}
+#btn_checkout:hover {
+  background-color: rgba(255, 107, 107, 255);
+}
+#btn_quartos {
+  background-color: #00ffffff;
+  color: rgba(255, 255, 255, 200);
+  border-radius: 5px;
+  text-align: left;
+}
+#btn_quartos:pressed {
+  padding-left: 5px;
+  padding-top: 5px;
+  background-color: rgba(255, 107, 107, 255);
+  background-position: calc(100%-10px) center;
+}
+#btn_quartos:hover {
+  background-color: rgba(255, 107, 107, 255);
+}
+
+#col_opcoes {
+  background-color: qlineargradient(
+    spread: pad,
+    x1: 0,
+    y1: 0.131,
+    x2: 0,
+    y2: 1,
+    stop: 0 rgba(39, 73, 109, 255),
+    stop: 1 rgba(145, 163, 173, 255)
+  );
+}
+#col_status {
+  background-color: rgba(39, 73, 109, 255);
+}
+
+/* Imagens */
+#btn_voltar {
+    background-color:#00FFFFFF;}
+#btn_home {
+    background-color:#00FFFFFF;}
+
+/* Imagens */
+#line_search {
+    background-color:#0f0f3a;
+    color: #ffffff;
+    border-radius:5px
+}
