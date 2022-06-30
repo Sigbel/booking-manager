@@ -3,8 +3,7 @@ import sqlite3
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.Qt import Qt
-
-from login_window import *
+from styles.login_window import *
 import main
 from time import sleep
 
@@ -59,6 +58,7 @@ def iniciar():
     log_page.show()
     qt.exec_()
     log_page.close()
+
 
 # def finalizar():
 #     if log_page.aut_login == True:

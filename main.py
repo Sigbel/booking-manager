@@ -4,7 +4,7 @@ import login
 from PyQt5.QtWidgets import QApplication, QDateEdit, QListWidget, QMainWindow, QMessageBox, QTableWidgetItem
 from PyQt5.QtCore import QDate, QTime
 from PyQt5.Qt import Qt
-from main_window import *
+from styles.main_window import *
 from datetime import datetime
 from modules.cpf_validator import valida_CPF
 from modules.email_reserva import reserv_email
@@ -22,6 +22,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         # Criação das tabelas iniciais:
         self.conn = sqlite3.connect('data.db')
         self.curs_or = self.conn.cursor()
+        self.curs_or.execute('CREATE TABLE IF NOT EXISTS usuarios ('
+                        'id INTEGER,'
+                        'usuario TEXT,'
+                        'senha TEXT'
+                        ')')
         self.curs_or.execute('CREATE TABLE IF NOT EXISTS clientes ('
                         'id INTEGER PRIMARY KEY AUTOINCREMENT,' 
                         'nome TEXT,'
@@ -370,3 +375,4 @@ if __name__ == '__main__':
         app = QApplication(sys.argv)  
         main_page.show()
         app.exec_() 
+

@@ -3602,6 +3602,7 @@ color:#ffffff</string>
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
+   <zorder>tabWidget</zorder>
    <zorder>col_opcoes</zorder>
    <zorder>col_status</zorder>
    <zorder>label</zorder>
@@ -3623,7 +3624,6 @@ color:#ffffff</string>
    <zorder>pushButton_4</zorder>
    <zorder>data_edit</zorder>
    <zorder>time_edit</zorder>
-   <zorder>tabWidget</zorder>
   </widget>
  </widget>
  <resources/>
