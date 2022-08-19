@@ -235,10 +235,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
     def do_checkin(self):
         self.init_data()
-
         
-
-
         self.conn.commit()
         self.conn.close()
 
