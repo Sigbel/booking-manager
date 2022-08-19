@@ -1,6 +1,6 @@
 import sys
-import sqlite3
 import login
+
 from PyQt5.QtWidgets import QApplication, QDateEdit, QListWidget, QMainWindow, QMessageBox, QTableWidgetItem
 from PyQt5.QtCore import QDate, QTime
 from PyQt5.Qt import Qt
@@ -8,9 +8,8 @@ from styles.main_window import *
 from datetime import datetime
 from modules.cpf_validator import valida_CPF
 from modules.email_reserva import reserv_email
+from modules.utils import conectar, desconectar
 
-
-QT_DEBUG_PLUGINS = 1
 class Main_Page(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -22,48 +21,45 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.set_labels()
 
         # Criação das tabelas iniciais:
-        self.conn = sqlite3.connect('data.db')
+        self.conn = conectar()
         self.curs_or = self.conn.cursor()
+
         self.curs_or.execute('CREATE TABLE IF NOT EXISTS usuarios ('
-                        'id INTEGER,'
-                        'usuario TEXT,'
-                        'senha TEXT'
+                        'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,'
+                        'usuario VARCHAR(50) NOT NULL,'
+                        'senha VARCHAR(50) NOT NULL'
                         ')')
         self.curs_or.execute('CREATE TABLE IF NOT EXISTS clientes ('
-                        'id INTEGER PRIMARY KEY AUTOINCREMENT,' 
-                        'nome TEXT,'
-                        'cpf TEXT,'
-                        'sobrenome TEXT,'
-                        'nascimento TEXT,'
-                        'endereço TEXT,'
-                        'bairro TEXT,'
-                        'cidade TEXT,'
-                        'cep TEXT,'
-                        'uf TEXT,'
-                        'email TEXT,'
-                        'telefone TEXT,'
-                        'celular TEXT'
+                        'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
+                        'nome VARCHAR(50) NOT NULL,'
+                        'cpf VARCHAR(50) NOT NULL,'
+                        'sobrenome VARCHAR(50) NOT NULL,'
+                        'nascimento VARCHAR(50) NOT NULL,'
+                        'endereço VARCHAR(50) NOT NULL,'
+                        'bairro VARCHAR(50) NOT NULL,'
+                        'cidade VARCHAR(50) NOT NULL,'
+                        'cep VARCHAR(50) NOT NULL,'
+                        'uf VARCHAR(50) NOT NULL,'
+                        'email VARCHAR(50) NOT NULL,'
+                        'telefone VARCHAR(50) NOT NULL,'
+                        'celular VARCHAR(50) NOT NULL'
                         ')')
         self.curs_or.execute('CREATE TABLE IF NOT EXISTS reservas ('
-                        'num_reserva INTEGER PRIMARY KEY AUTOINCREMENT,' 
-                        'id INTEGER,'
-                        'adultos INTEGER,'
-                        'crianças INTEGER,'
-                        'diarias INTEGER,'
-                        'data_reserva TEXT,'
-                        'cliente TEXT,'
-                        'sobrenome TEXT,'
-                        'cpf TEXT,'
-                        'email TEXT,'
-                        'celular TEXT,'
-                        'forma_pagamento TEXT,'
-                        'obs TEXT'
+                        'num_reserva INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
+                        'id INT NOT NULL,'
+                        'adultos INT NOT NULL,'
+                        'crianças INT NOT NULL,'
+                        'diarias INT NOT NULL,'
+                        'data_reserva VARCHAR(50) NOT NULL,'
+                        'cliente VARCHAR(50) NOT NULL,'
+                        'sobrenome VARCHAR(50) NOT NULL,'
+                        'cpf VARCHAR(50) NOT NULL,'
+                        'email VARCHAR(50) NOT NULL,'
+                        'celular VARCHAR(50) NOT NULL,'
+                        'forma_pagamento VARCHAR(50) NOT NULL,'
+                        'obs VARCHAR(50) NOT NULL'
                         ')')
-        # self.curs_or.execute('CREATE TABLE IF NOT EXISTS checkin ('
-        #                 'num_quarto INTEGER')
-        # self.curs_or.execute('CREATE TABLE IF NOT EXISTS checkout ('
-        #                 'num_quarto INTEGER')
-        self.conn.close()
+        desconectar(self.conn)
 
 
         # Setar Default Date (Guia Reservas)
@@ -95,38 +91,20 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.btn_visu_reserv.clicked.connect(lambda: self.verifica_banco_r(2))
         self.btn_checkin_2.clicked.connect(self.do_checkin)
 
-        # Botões (CheckOut)
-        # self.btn_saida.clicked.conncet(self.do_checkout)
-        
-        # Botões (Quartos)
-        # Botões (Home)
-
         # Condições de ativação: Banco não atualiza com app aberto
         if self.tabWidget.currentIndex() == 1:
             self.table_clients.repaint()
             self.consulta_banco()
 
-        # # self.list_q_disp = QListWidget()
-        # for c in range(10, 36, 10):
-        #     for c1 in range(1, 6):
-        #         self.list_q_d_pq.addItem(f'Quarto {c+c1}')
-        # for c in range(40, 66, 10):
-        #     for c1 in range(1, 6):
-        #         self.list_q_d_med.addItem(f'Quarto {c+c1}')
-        # for c in range(70, 96, 10):
-        #     for c1 in range(1, 6):
-        #         self.list_q_d_gran.addItem(f'Quarto {c+c1}')
-        # for c1 in range(101, 106):
-        #         self.list_q_d_luxo.addItem(f'Quarto {c1}')
-
-    def init_data(self):
-        self.conn = sqlite3.connect('data.db')
-        self.curs_or = self.conn.cursor()
+    def keyPressEvent(self, event): # Corrigir Bug: - Enter quando apertado sem preencher trás o primeiro nome do banco
+        if event.key() == Qt.Key_Enter and self.tabWidget.currentIndex() == 2:
+            self.verifica_banco_r(1)
+        elif event.key() == Qt.Key_Enter and self.tabWidget.currentIndex() == 5:
+            self.verifica_banco_r(2)
 
 
     def go_login(self):
         login.iniciar()
-
 
     def show_popup(self, mode):
         if mode == 'incomp':
@@ -141,19 +119,17 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             msg.setIcon(QMessageBox.Information)
         box = msg.exec_()
 
-
     def set_labels(self):
         labels = [self.test_cpf, self.test_tel, self.test_cel, self.test_cep]
         for c in labels:
             c.setVisible(False)
 
-
     def seleciona_tab(self, value: int):
         self.tabWidget.setCurrentIndex(value)
 
-
     def table_click(self):
-        self.init_data()
+        self.conn = conectar()
+        self.curs_or = self.conn.cursor()
 
         index = (self.table_clients.selectionModel().currentIndex())
         value1 = index.sibling(index.row(),0).data()
@@ -177,9 +153,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.line_c_email.setText(dados[0][10])   
         self.line_c_phone.setText(dados[0][11])   
         self.line_c_cellphone.setText(dados[0][12])
+        desconectar()
 
     def consulta_banco(self):
-        self.init_data()
+        self.conn = conectar()
+        self.curs_or = self.conn.cursor()
 
         consulta = 'SELECT * FROM clientes'
         linha = self.curs_or.execute(consulta)
@@ -192,11 +170,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 self.table_clients.setItem(c, c1, QTableWidgetItem(str(dados[c][c1])))
 
         self.conn.commit()
-        self.conn.close()
-
+        desconectar(self.conn)
 
     def verifica_banco_r(self, mode): # Bug: Bloquear programa quando não encontra CPF
-        self.init_data()
+        self.conn = conectar()
+        self.curs_or = self.conn.cursor()
 
         if mode == 1:
             if self.line_r_cpf != '':
@@ -233,13 +211,14 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             else: self.show_popup('wrong')
  
         self.conn.commit()
-        self.conn.close()
+        desconectar(self.conn)
 
     def do_checkin(self):
-        self.init_data()
+        self.conn = conectar()
+        self.curs_or = self.conn.cursor()
         
         self.conn.commit()
-        self.conn.close()
+        self.desconectar(self.conn)
 
     def limpa_campos_reservas(self):
         campos = [self.line_r_name, self.line_r_lastname, self.line_r_cpf, self.line_r_email, 
@@ -253,9 +232,9 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         for c2 in campos:
             c2.clear()
 
-
     def insert_reserva(self): # Bug: PopUp não verifica caixa de spin
-        self.init_data()
+        self.conn = conectar()
+        self.curs_or = self.conn.cursor()
 
         show = False
         campos = [self.line_r_name, self.line_r_lastname, self.line_r_cpf, self.line_r_email, self.line_r_cel]
@@ -287,8 +266,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             dados = [linha for linha in self.curs_or.fetchall()]
             reserv_email(f'{dados[0][6]} {dados[0][7]}',dados[0][0])
 
-        self.conn.close()
-
+        self.conn.commit()
+        desconectar(self.conn)
 
     def limpa_campos_clientes(self):
         campos = [self.line_name, self.line_lastname, self.line_birth, self.line_cpf, self.line_adress,
@@ -299,9 +278,9 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         for c1 in campos:
             c1.clear()
 
-
     def insert_client(self): # Bug: PopUp não verifica caixa de spin
-        self.init_data()
+        self.conn = conectar()
+        self.curs_or = self.conn.cursor()
 
         autentica = False
         if valida_CPF(self.line_cpf.text()) == True:
@@ -357,14 +336,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             self.conn.commit()
    
         self.conn.commit()
-        self.conn.close()
-
-
-    def keyPressEvent(self, event): # Corrigir Bug: - Enter quando apertado sem preencher trás o primeiro nome do banco
-        if event.key() == Qt.Key_Enter and self.tabWidget.currentIndex() == 2:
-            self.verifica_banco_r(1)
-        elif event.key() == Qt.Key_Enter and self.tabWidget.currentIndex() == 5:
-            self.verifica_banco_r(2)
+        desconectar(self.conn)
 
 
 if __name__ == '__main__':
