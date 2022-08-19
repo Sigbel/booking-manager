@@ -9,6 +9,8 @@ from datetime import datetime
 from modules.cpf_validator import valida_CPF
 from modules.email_reserva import reserv_email
 
+
+QT_DEBUG_PLUGINS = 1
 class Main_Page(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)

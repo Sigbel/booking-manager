@@ -48,7 +48,7 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(140, 30, 401, 211))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("styles\\../Imagens/Entrada.png"))
+        self.label.setPixmap(QtGui.QPixmap("styles\\../Images/Entrada.png"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
         self.columnView_2 = QtWidgets.QColumnView(self.centralwidget)
