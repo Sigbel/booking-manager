@@ -627,7 +627,7 @@ border-radius:5px</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>1</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -694,10 +694,10 @@ border-radius:5px</string>
      <widget class="QPushButton" name="btn_pesq_client">
       <property name="geometry">
        <rect>
-        <x>280</x>
+        <x>290</x>
         <y>70</y>
         <width>31</width>
-        <height>23</height>
+        <height>20</height>
        </rect>
       </property>
       <property name="text">
@@ -1128,6 +1128,19 @@ border-radius:5px</string>
       </property>
       <property name="readOnly">
        <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_refresh_tab1">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>70</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PushButton</string>
       </property>
      </widget>
     </widget>
@@ -3602,9 +3615,8 @@ color:#ffffff</string>
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <zorder>tabWidget</zorder>
-   <zorder>col_opcoes</zorder>
    <zorder>col_status</zorder>
+   <zorder>col_opcoes</zorder>
    <zorder>label</zorder>
    <zorder>lineEdit</zorder>
    <zorder>label_6</zorder>
@@ -3624,6 +3636,7 @@ color:#ffffff</string>
    <zorder>pushButton_4</zorder>
    <zorder>data_edit</zorder>
    <zorder>time_edit</zorder>
+   <zorder>tabWidget</zorder>
   </widget>
  </widget>
  <resources/>

@@ -27,7 +27,7 @@ class LoginPage(QMainWindow, Ui_MainWindow):
 
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Enter:
+        if (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return):
             self.go_mainpage()
 
     def go_mainpage(self):
@@ -47,7 +47,7 @@ class LoginPage(QMainWindow, Ui_MainWindow):
             else:
                 self._aut = True
                 print('Login-Bem-Sucedido')
-                self.curs_or.close()
+                # self.curs_or.close()
                 desconectar(self.conn)
                 QCoreApplication.quit()
 
