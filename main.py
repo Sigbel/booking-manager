@@ -114,12 +114,12 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         login.iniciar()
 
     def show_popup(self, mode):
-        if mode == 'incomp':
+        if mode == 1:
             msg = QMessageBox()
             msg.setWindowTitle('Erro!')
             msg.setText('Todos os campos devem ser preenchidos!')
             msg.setIcon(QMessageBox.Warning)
-        if mode == 'wrong':
+        if mode == 2:
             msg = QMessageBox()
             msg.setWindowTitle('Atenção')
             msg.setText('CPF ou Reserva não encontrado!')
@@ -211,7 +211,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 dados = [linha for linha in self.curs_or.fetchall()]
 
                 if dados == []:
-                    self.show_popup('wrong')
+                    self.show_popup(2)
                 else:
                     self.line_checkin_number.setText(str(dados[0][0]))
             elif self.line_checkin_number.text() != '':
@@ -220,10 +220,10 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 dados = [linha for linha in self.curs_or.fetchall()]
 
                 if dados == []:
-                    self.show_popup('wrong')
+                    self.show_popup(2)
                 else:
                     self.line_checkin_cpf.setText(str(dados[0][8]))
-            else: self.show_popup('wrong')
+            else: self.show_popup(2)
         
         elif mode == 3:
             self.conn = conectar()
@@ -281,12 +281,12 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         date_re = self.date_reserve.date().toString(Qt.ISODate)
         for c in campos:
-            if (c.text() == '') or (date_re == '3000-01-01'):
+            if (c.text() == ''):
                 show = True
             else:
                 autentica = True
         if show:
-            self.show_popup('incomp')
+            self.show_popup(1)
             show = False
             autentica = False
 
@@ -320,10 +320,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         desconectar(self.conn)
 
     def limpa_campos_clientes(self):
-        campos = [self.line_name, self.line_lastname, self.line_birth, self.line_cpf, self.line_adress,
+        campos = [self.line_name, self.line_lastname, self.line_cpf, self.line_adress,
         self.line_district, self.line_city, self.line_cep, self.line_email, self.line_tel,
         self.line_cellphone]
 
+        self.date_birth.setDate(self.dt)
         self.combo_uf.setCurrentIndex(0)
         for c1 in campos:
             c1.clear()
@@ -366,12 +367,12 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         date_bir = self.date_birth.date().toString(Qt.ISODate)
         for c in campos:
-            if (c.text() == '') or (date_bir == '3000-01-01'):
+            if (c.text() == '') or (date_bir == self.dt):
                 show = True
             else:
                 autentica = True
         if show:
-            self.show_popup('incomp')
+            self.show_popup(1)
             show = False
             autentica = False
 
