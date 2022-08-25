@@ -1,11 +1,9 @@
 import sys
 import login
-import MySQLdb
 import pycep_correios
 
-from PyQt5.QtWidgets import QApplication, QDateEdit, QListWidget, QMainWindow, QMessageBox, QTableWidgetItem
-from PyQt5.QtCore import QDate, QTime, Qt
-# from PyQt5.Qt import Qt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem
+from PyQt5.QtCore import Qt
 from styles.main_window import *
 from datetime import datetime
 from modules.cpf_validator import valida_CPF
@@ -114,16 +112,23 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         login.iniciar()
 
     def show_popup(self, mode):
+        msg = QMessageBox()
         if mode == 1:
-            msg = QMessageBox()
             msg.setWindowTitle('Erro!')
             msg.setText('Todos os campos devem ser preenchidos!')
             msg.setIcon(QMessageBox.Warning)
         if mode == 2:
-            msg = QMessageBox()
             msg.setWindowTitle('Atenção')
             msg.setText('CPF ou Reserva não encontrado!')
             msg.setIcon(QMessageBox.Information)
+        if mode == 3:
+            # msg.setWindowTitle('Informação')
+            # msg.setText('')
+            pass
+        if mode == 4:
+            pass
+        if mode == 5:
+            pass
         box = msg.exec_()
 
     def set_labels(self):
