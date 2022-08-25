@@ -225,9 +225,9 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         if mode == 1:
             if self.line_r_cpf != '':
-                consulta = 'SELECT * FROM clientes WHERE cpf like ?'
-                linha = self.curs_or.execute(consulta, (f'%{self.line_r_cpf.text()}%', ))
-                dados = [linha for linha in self.curs_or.fetchall()]
+                consulta = f'SELECT * FROM clientes WHERE cpf="{self.line_r_cpf.text()}"'
+                self.curs_or.execute(consulta)
+                dados = self.curs_or.fetchall()
 
                 self.line_r_name.setText(dados[0][1])
                 self.line_r_lastname.setText(dados[0][3])
@@ -236,18 +236,18 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         elif mode == 2:
             if self.line_checkin_cpf.text() != '':
-                consulta = 'SELECT * FROM reservas WHERE cpf like ? ORDER BY num_reserva DESC '
-                linha = self.curs_or.execute(consulta, (f'%{self.line_checkin_cpf.text()}%', ))
-                dados = [linha for linha in self.curs_or.fetchall()]
+                consulta = f'SELECT * FROM reservas WHERE cpf="{self.line_checkin_cpf.text()}" ORDER BY num_reserva DESC '
+                self.curs_or.execute(consulta)
+                dados = self.curs_or.fetchall()
 
                 if dados == []:
                     self.show_popup(2)
                 else:
                     self.line_checkin_number.setText(str(dados[0][0]))
             elif self.line_checkin_number.text() != '':
-                consulta = 'SELECT * FROM reservas WHERE num_reserva like ? ORDER BY num_reserva DESC '
-                linha = self.curs_or.execute(consulta, (f'%{self.line_checkin_number.text()}%', ))
-                dados = [linha for linha in self.curs_or.fetchall()]
+                consulta = f'SELECT * FROM reservas WHERE num_reserva={self.line_checkin_number.text()} ORDER BY num_reserva DESC '
+                self.curs_or.execute(consulta)
+                dados = self.curs_or.fetchall()
 
                 if dados == []:
                     self.show_popup(2)
@@ -290,7 +290,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
     def limpa_campos_reservas(self):
         campos = [self.line_r_name, self.line_r_lastname, self.line_r_cpf, self.line_r_email, 
-        self.line_r_cel, self.line_r_id, self.line_obs]
+        self.line_r_contato, self.line_obs]
 
         self.combo_payment.setCurrentIndex(0)
         self.spin_r_totald.setValue(0)
@@ -305,7 +305,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.curs_or = self.conn.cursor()
 
         show = False
-        campos = [self.line_r_name, self.line_r_lastname, self.line_r_cpf, self.line_r_email, self.line_r_cel]
+        campos = [self.line_r_name, self.line_r_lastname, self.line_r_cpf, self.line_r_email, self.line_r_contato]
 
         date_re = self.date_reserve.date().toString(Qt.ISODate)
         for c in campos:
