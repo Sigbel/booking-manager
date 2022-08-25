@@ -9,11 +9,6 @@ def valida_CPF(cpf):
 
     valores_teste_dig = []
     cont1, cont2 = 10, 11
-    """ # Verificação de CPF (não obrigatório)
-    while not cpf.isnumeric():                      
-        cpf = input('O CPF não pode conter ponto ou hífen.\nTente novamente: ')
-    while len(cpf) != 11:
-        cpf = input('O CPF deve conter 11 números.\nTente novamente: ')"""
     cpf_digitos1 = cpf[:-2]
 
     # Verifica digito 1

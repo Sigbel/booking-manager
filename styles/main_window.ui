@@ -627,7 +627,7 @@ border-radius:5px</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -900,7 +900,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>360</x>
-        <y>280</y>
+        <y>310</y>
         <width>41</width>
         <height>16</height>
        </rect>
@@ -913,7 +913,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>360</x>
-        <y>310</y>
+        <y>340</y>
         <width>41</width>
         <height>16</height>
        </rect>
@@ -926,7 +926,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>360</x>
-        <y>340</y>
+        <y>370</y>
         <width>31</width>
         <height>16</height>
        </rect>
@@ -939,7 +939,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>360</x>
-        <y>370</y>
+        <y>400</y>
         <width>31</width>
         <height>16</height>
        </rect>
@@ -965,7 +965,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>360</x>
-        <y>400</y>
+        <y>430</y>
         <width>31</width>
         <height>16</height>
        </rect>
@@ -978,26 +978,26 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>360</x>
-        <y>430</y>
-        <width>51</width>
+        <y>460</y>
+        <width>71</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Telefone:</string>
+       <string>Tel/Contato:</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_65">
       <property name="geometry">
        <rect>
         <x>360</x>
-        <y>460</y>
-        <width>41</width>
+        <y>490</y>
+        <width>71</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Celular:</string>
+       <string>complemento</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="line_c_bithd">
@@ -1043,7 +1043,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>520</x>
-        <y>280</y>
+        <y>310</y>
         <width>421</width>
         <height>20</height>
        </rect>
@@ -1056,7 +1056,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>520</x>
-        <y>310</y>
+        <y>340</y>
         <width>421</width>
         <height>20</height>
        </rect>
@@ -1069,7 +1069,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>520</x>
-        <y>340</y>
+        <y>370</y>
         <width>421</width>
         <height>20</height>
        </rect>
@@ -1082,7 +1082,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>520</x>
-        <y>370</y>
+        <y>400</y>
         <width>421</width>
         <height>20</height>
        </rect>
@@ -1095,7 +1095,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>520</x>
-        <y>400</y>
+        <y>430</y>
         <width>421</width>
         <height>20</height>
        </rect>
@@ -1108,7 +1108,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>520</x>
-        <y>430</y>
+        <y>460</y>
         <width>421</width>
         <height>20</height>
        </rect>
@@ -1117,11 +1117,11 @@ border-radius:5px</string>
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLineEdit" name="line_c_cellphone">
+     <widget class="QLineEdit" name="line_c_complement">
       <property name="geometry">
        <rect>
         <x>520</x>
-        <y>460</y>
+        <y>490</y>
         <width>421</width>
         <height>20</height>
        </rect>
@@ -1141,6 +1141,32 @@ border-radius:5px</string>
       </property>
       <property name="text">
        <string>PushButton</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_88">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>280</y>
+        <width>51</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Número</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_c_adress_number">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>280</y>
+        <width>421</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -1235,6 +1261,9 @@ border-radius:5px</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="line_r_name">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -1251,6 +1280,9 @@ border-radius:5px</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="line_r_lastname">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>530</x>
@@ -1267,7 +1299,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>220</y>
+        <y>160</y>
         <width>241</width>
         <height>20</height>
        </rect>
@@ -1280,9 +1312,12 @@ border-radius:5px</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="line_r_email">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>280</x>
+        <x>30</x>
         <y>220</y>
         <width>241</width>
         <height>20</height>
@@ -1292,10 +1327,13 @@ border-radius:5px</string>
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLineEdit" name="line_r_cel">
+     <widget class="QLineEdit" name="line_r_contato">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>530</x>
+        <x>280</x>
         <y>220</y>
         <width>241</width>
         <height>20</height>
@@ -1322,7 +1360,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>200</y>
+        <y>140</y>
         <width>47</width>
         <height>13</height>
        </rect>
@@ -1334,7 +1372,7 @@ border-radius:5px</string>
      <widget class="QLabel" name="label_30">
       <property name="geometry">
        <rect>
-        <x>280</x>
+        <x>30</x>
         <y>200</y>
         <width>47</width>
         <height>13</height>
@@ -1347,14 +1385,14 @@ border-radius:5px</string>
      <widget class="QLabel" name="label_31">
       <property name="geometry">
        <rect>
-        <x>530</x>
+        <x>280</x>
         <y>200</y>
-        <width>47</width>
-        <height>13</height>
+        <width>71</width>
+        <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Celular</string>
+       <string>Tel/Contato</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_33">
@@ -1557,35 +1595,6 @@ border-radius:5px</string>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="line_r_id">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>160</y>
-        <width>241</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="clearButtonEnabled">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_32">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>140</y>
-        <width>47</width>
-        <height>13</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>ID</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tab_cad_hosp">
      <attribute name="title">
@@ -1654,8 +1663,8 @@ border-radius:5px</string>
      <widget class="QLabel" name="label_9">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>220</y>
+        <x>30</x>
+        <y>270</y>
         <width>47</width>
         <height>13</height>
        </rect>
@@ -1667,7 +1676,7 @@ border-radius:5px</string>
      <widget class="QLabel" name="label_10">
       <property name="geometry">
        <rect>
-        <x>530</x>
+        <x>610</x>
         <y>220</y>
         <width>47</width>
         <height>13</height>
@@ -1680,7 +1689,7 @@ border-radius:5px</string>
      <widget class="QLabel" name="label_12">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>280</x>
         <y>220</y>
         <width>47</width>
         <height>13</height>
@@ -1708,12 +1717,12 @@ border-radius:5px</string>
        <rect>
         <x>280</x>
         <y>360</y>
-        <width>47</width>
-        <height>13</height>
+        <width>91</width>
+        <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Telefone</string>
+       <string>Tel/Contato</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_16">
@@ -1746,7 +1755,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>270</y>
+        <y>220</y>
         <width>47</width>
         <height>13</height>
        </rect>
@@ -1777,6 +1786,9 @@ border-radius:5px</string>
         <height>20</height>
        </rect>
       </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QLineEdit" name="line_lastname">
       <property name="geometry">
@@ -1786,6 +1798,9 @@ border-radius:5px</string>
         <width>241</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QLineEdit" name="line_cpf">
@@ -1799,6 +1814,9 @@ border-radius:5px</string>
       </property>
       <property name="placeholderText">
        <string>Somente Números</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QLabel" name="label_20">
@@ -1828,16 +1846,9 @@ border-radius:5px</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="line_adress">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>240</y>
-        <width>241</width>
-        <height>20</height>
-       </rect>
+      <property name="enabled">
+       <bool>false</bool>
       </property>
-     </widget>
-     <widget class="QLineEdit" name="line_district">
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -1847,12 +1858,28 @@ border-radius:5px</string>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="line_city">
+     <widget class="QLineEdit" name="line_district">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>530</x>
-        <y>240</y>
+        <x>30</x>
+        <y>290</y>
         <width>241</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_city">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>240</y>
+        <width>161</width>
         <height>20</height>
        </rect>
       </property>
@@ -1861,10 +1888,16 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>290</y>
+        <y>240</y>
         <width>241</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Somente Números</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QLabel" name="label_22">
@@ -1889,6 +1922,12 @@ border-radius:5px</string>
         <height>20</height>
        </rect>
       </property>
+      <property name="placeholderText">
+       <string>exemplo@exemplo.com</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QLineEdit" name="line_tel">
       <property name="geometry">
@@ -1899,28 +1938,11 @@ border-radius:5px</string>
         <height>20</height>
        </rect>
       </property>
-     </widget>
-     <widget class="QLabel" name="label_23">
-      <property name="geometry">
-       <rect>
-        <x>530</x>
-        <y>360</y>
-        <width>47</width>
-        <height>13</height>
-       </rect>
+      <property name="placeholderText">
+       <string>Somente Números </string>
       </property>
-      <property name="text">
-       <string>Celular</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="line_cellphone">
-      <property name="geometry">
-       <rect>
-        <x>530</x>
-        <y>380</y>
-        <width>241</width>
-        <height>20</height>
-       </rect>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QPushButton" name="btn_clear_all_c">
@@ -1971,7 +1993,7 @@ border-radius:5px</string>
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="test_tel">
+     <widget class="QLabel" name="test_contato">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -1993,29 +2015,10 @@ border-radius:5px</string>
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="test_cel">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>720</x>
-        <y>360</y>
-        <width>47</width>
-        <height>13</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 0, 4)</string>
-      </property>
-      <property name="text">
-       <string>Inválido</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
      <widget class="QComboBox" name="combo_uf">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -2023,6 +2026,12 @@ border-radius:5px</string>
         <width>69</width>
         <height>22</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
       </property>
       <item>
        <property name="text">
@@ -2205,6 +2214,58 @@ border-radius:5px</string>
         <month>1</month>
         <day>1</day>
        </date>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_complement">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>290</y>
+        <width>411</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_86">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>266</y>
+        <width>71</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Complemento</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_adress_number">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>240</y>
+        <width>71</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_87">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>220</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Número</string>
       </property>
      </widget>
     </widget>

@@ -1,6 +1,5 @@
 import sys
 import login
-import pycep_correios
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem
 from PyQt5.QtCore import Qt
@@ -8,7 +7,7 @@ from styles.main_window import *
 from datetime import datetime
 from modules.cpf_validator import valida_CPF
 from modules.email_reserva import reserv_email
-from modules.utils import conectar, desconectar
+from modules.utils import conectar, desconectar, find_cep, verificar_email
 
 class Main_Page(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -29,7 +28,6 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         'usuario VARCHAR(50) NOT NULL,'
                         'senha VARCHAR(50) NOT NULL'
                         ')')
-        # self.curs_or.execute('INSERT INTO usuarios (usuario, senha) VALUES ("1", "1")')
         self.curs_or.execute('CREATE TABLE IF NOT EXISTS clientes ('
                         'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
                         'nome VARCHAR(50) NOT NULL,'
@@ -46,18 +44,19 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         'celular VARCHAR(50) NOT NULL'
                         ')')
         self.curs_or.execute('CREATE TABLE IF NOT EXISTS reservas (' 
-                        'num_reserva INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
-                        'id INT NOT NULL,'
+                        'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
                         'adultos INT NOT NULL,'
                         'crianças INT NOT NULL,'
                         'diarias INT NOT NULL,'
                         'data_reserva DATE NOT NULL,'
-                        'celular VARCHAR(50) NOT NULL,'
                         'forma_pagamento VARCHAR(50) NOT NULL,'
                         'obs VARCHAR(200) NOT NULL,'
                         'id_cliente INT NULL,'
                         'FOREIGN KEY (id_cliente) REFERENCES clientes(id)'
                         ')')
+        # self.curs_or.execute()
+        # self.curs_or.execute()
+
         desconectar(self.conn)
 
         # Setar Default Date (Guia Reservas e Clientes)
@@ -65,13 +64,13 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.date_birth.setDate(self.dt)
 
         # Botões Gerais 
-        self.btn_home.clicked.connect(lambda: self.seleciona_tab(0))
-        self.btn_cliente.clicked.connect(lambda: self.seleciona_tab(1))
-        self.btn_reservas.clicked.connect(lambda: self.seleciona_tab(2))
-        self.btn_cadastro_h.clicked.connect(lambda: self.seleciona_tab(3))
-        self.btn_quartos.clicked.connect(lambda: self.seleciona_tab(4))
-        self.btn_checkin.clicked.connect(lambda: self.seleciona_tab(5))
-        self.btn_checkout.clicked.connect(lambda: self.seleciona_tab(6))
+        self.btn_home.clicked.connect(lambda: self.seleciona_tab(0, 0))
+        self.btn_cliente.clicked.connect(lambda: self.seleciona_tab(1, 0))
+        self.btn_reservas.clicked.connect(lambda: self.seleciona_tab(2, 0))
+        self.btn_cadastro_h.clicked.connect(lambda: self.seleciona_tab(3, 0))
+        self.btn_quartos.clicked.connect(lambda: self.seleciona_tab(4, 0))
+        self.btn_checkin.clicked.connect(lambda: self.seleciona_tab(5, 0))
+        self.btn_checkout.clicked.connect(lambda: self.seleciona_tab(6, 0))
         self.data_edit.setText(self.dt.strftime('%d/%m/%Y'))
         self.time_edit.setText(self.dt.strftime('%H:%M:%S'))
 
@@ -99,6 +98,9 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             self.table_clients.repaint()
             self.consulta_banco()
 
+    def go_login(self):
+        login.iniciar()
+
     def keyPressEvent(self, event): # Corrigir Bug: - Enter quando apertado sem preencher trás o primeiro nome do banco
         if (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.tabWidget.currentIndex() == 2:
             self.verifica_banco_r(1)
@@ -106,10 +108,12 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             self.verifica_banco_r(2)
         elif (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.tabWidget.currentIndex() == 1:
             self.verifica_banco_r(3)
-
-
-    def go_login(self):
-        login.iniciar()
+        elif (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.tabWidget.currentIndex() == 3:
+            try: 
+                adress = find_cep(self.line_cep.text())
+                self.set_adress(adress)
+            except:
+                self.show_popup(4)
 
     def show_popup(self, mode):
         msg = QMessageBox()
@@ -122,23 +126,39 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             msg.setText('CPF ou Reserva não encontrado!')
             msg.setIcon(QMessageBox.Information)
         if mode == 3:
-            # msg.setWindowTitle('Informação')
-            # msg.setText('')
-            pass
+            msg.setWindowTitle('Informação')
+            msg.setText('Cliente cadastrado com sucesso!')
+            msg.setIcon(QMessageBox.Information)
         if mode == 4:
-            pass
+            msg.setWindowTitle('Erro')
+            msg.setText('CEP não encontrado ou incorreto!')
+            msg.setIcon(QMessageBox.Warning)
         if mode == 5:
-            pass
-        box = msg.exec_()
+            msg.setWindowTitle('Atenção')
+            msg.setText('CPF inválido ou já em uso!')
+            msg.setIcon(QMessageBox.Information)
+        if mode == 6:
+            msg.setWindowTitle('Atenção')
+            msg.setText('Email inválido ou já em uso!')
+            msg.setIcon(QMessageBox.Information)
+        if mode == 7:
+            msg.setWindowTitle('Atenção')
+            msg.setText('Telefone para contato inválido ou já em uso !')
+            msg.setIcon(QMessageBox.Information)
+        msg.exec_()
 
     def set_labels(self):
-        labels = [self.test_cpf, self.test_tel, self.test_cel, self.test_cep]
+        labels = [self.test_cpf, self.test_contato, self.test_cep]
         for c in labels:
             c.setVisible(False)
 
-    def seleciona_tab(self, value: int):
+    def seleciona_tab(self, value: int, mode: int):
         self.tabWidget.setCurrentIndex(value)
-
+        if mode == 0:
+            pass
+        elif mode == 1:
+            pass
+            
     def table_click(self):
         self.conn = conectar()
         self.curs_or = self.conn.cursor()
@@ -156,23 +176,30 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.line_c_cpf.setText(dados[0][2])   
         self.line_c_lastname.setText(dados[0][3])   
         self.line_c_bithd.setText(str(dados[0][4]))   
-        self.line_c_adress.setText(dados[0][5])   
-        self.line_c_district.setText(dados[0][6])   
-        self.line_c_city.setText(dados[0][7])   
-        self.line_c_cep.setText(dados[0][8])   
-        self.line_c_uf.setText(dados[0][9])   
-        self.line_c_email.setText(dados[0][10])   
-        self.line_c_phone.setText(dados[0][11])   
-        self.line_c_cellphone.setText(dados[0][12])
+        self.line_c_adress.setText(dados[0][5])
+        self.line_c_adress_number.setText(dados[0][6])   
+        self.line_c_district.setText(dados[0][7])   
+        self.line_c_city.setText(dados[0][8])   
+        self.line_c_cep.setText(dados[0][9])   
+        self.line_c_uf.setText(dados[0][10])   
+        self.line_c_email.setText(dados[0][11])   
+        self.line_c_phone.setText(dados[0][12])   
+        self.line_c_complement.setText(dados[0][13])
         
         desconectar(self.conn)
+
+    def set_adress(self, dados):
+        self.line_adress.setText(dados["logradouro"])
+        self.line_district.setText(dados["bairro"])
+        self.line_city.setText(dados["cidade"])
+        self.combo_uf.setCurrentText(dados["uf"])
+        self.line_complement.setText(dados["complemento"])
 
     def temp_atualiza_banco(self):
             self.table_clients.repaint()
             self.consulta_banco()
 
             self.line_proc_client.clear()
-            print("executado")
 
     def consulta_banco(self):
         self.conn = conectar()
@@ -202,12 +229,10 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 linha = self.curs_or.execute(consulta, (f'%{self.line_r_cpf.text()}%', ))
                 dados = [linha for linha in self.curs_or.fetchall()]
 
-                self.line_r_id.setText(str(dados[0][0]))
                 self.line_r_name.setText(dados[0][1])
-                self.line_r_lastname.setText(dados[0][2])
-                self.line_r_email.setText(dados[0][10])
-                self.line_r_cel.setText(dados[0][12])
-
+                self.line_r_lastname.setText(dados[0][3])
+                self.line_r_email.setText(dados[0][11])
+                self.line_r_contato.setText(dados[0][12])
 
         elif mode == 2:
             if self.line_checkin_cpf.text() != '':
@@ -231,29 +256,27 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             else: self.show_popup(2)
         
         elif mode == 3:
-            self.conn = conectar()
-            self.curs_or = self.conn.cursor()
-            
-            busca = self.line_proc_client.text()
-            nome = ""
-            sobrenome = ""
+            if self.line_proc_client.text() != '':
+                busca = self.line_proc_client.text()
+                nome = ""
+                sobrenome = ""
 
-            if len(busca.split()) > 1:
-                nome = busca.split()[0].upper()
-                sobrenome = busca.split()[1].upper()
+                if len(busca.split()) > 1:
+                    nome = busca.split()[0].upper()
+                    sobrenome = busca.split()[1].upper()
 
-            print(busca)
+                consulta = f'SELECT * FROM clientes WHERE id="{busca}" or cpf="{busca}" or (nome="{nome}" and sobrenome="{sobrenome}")'
+                self.curs_or.execute(consulta)
+                dados = self.curs_or.fetchall()
 
-            consulta = f'SELECT * FROM clientes WHERE id="{busca}" or cpf="{busca}" or (nome="{nome}" and sobrenome="{sobrenome}")'
-            self.curs_or.execute(consulta)
-            dados = self.curs_or.fetchall()
+                self.table_clients.setRowCount(len(dados))
+                self.table_clients.setColumnCount(3)
 
-            self.table_clients.setRowCount(len(dados))
-            self.table_clients.setColumnCount(3)
-
-            for c in range(0, len(dados)):
-                for c1 in range(0,3):
-                    self.table_clients.setItem(c, c1, QTableWidgetItem(str(dados[c][c1])))
+                for c in range(0, len(dados)):
+                    for c1 in range(0,3):
+                        self.table_clients.setItem(c, c1, QTableWidgetItem(str(dados[c][c1])))
+            else:
+                pass   
  
         self.conn.commit()
         desconectar(self.conn)
@@ -325,9 +348,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         desconectar(self.conn)
 
     def limpa_campos_clientes(self):
-        campos = [self.line_name, self.line_lastname, self.line_cpf, self.line_adress,
-        self.line_district, self.line_city, self.line_cep, self.line_email, self.line_tel,
-        self.line_cellphone]
+        campos = [self.line_name, self.line_lastname, self.line_cpf, self.line_adress, self.line_adress_number,
+        self.line_district, self.line_city, self.line_cep, self.line_email, self.line_tel]
 
         self.date_birth.setDate(self.dt)
         self.combo_uf.setCurrentIndex(0)
@@ -338,71 +360,87 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.conn = conectar()
         self.curs_or = self.conn.cursor()
 
-        autentica = False
         if valida_CPF(self.line_cpf.text()) == True:
-            autentica = True
             self.test_cpf.setVisible(False)
         else:
-            autentica = False
+            self.show_popup(5)
             self.test_cpf.setVisible(True)
-        if len(self.line_tel.text()) == 10:
-            autentica = True
-            self.test_tel.setVisible(False)
-        else:
-            autentica = False
-            self.test_tel.setVisible(True)
-        if len(self.line_cellphone.text()) == 11:
-            autentica = True
-            self.test_cel.setVisible(False)
-        else:
-            autentica = False
-            self.test_cel.setVisible(True)
+            return
+
         if len(self.line_cep.text()) == 8:
-            autentica = True
             self.test_cep.setVisible(False)
         else:
-            autentica = False
+            self.show_popup(4)
             self.test_cep.setVisible(True)
+            return
 
         # Teste de campos
         show = False
         campos = [self.line_name, self.line_lastname, self.line_cpf, self.line_adress,
             self.line_district,self.line_city, self.line_cep, self.line_email,
-            self.line_tel, self.line_cellphone]
+            self.line_tel, self.line_adress_number]
 
         date_bir = self.date_birth.date().toString(Qt.ISODate)
+
+        # Checagens:
+            # Campos em Branco
         for c in campos:
             if (c.text() == '') or (date_bir == self.dt):
                 show = True
-            else:
-                autentica = True
+        
         if show:
             self.show_popup(1)
-            show = False
-            autentica = False
+            return
 
-        if autentica == True:
-            self.curs_or.execute('INSERT INTO clientes ('
-                'nome, sobrenome, nascimento, cpf, endereço, bairro, cidade, cep, uf, email, telefone, celular)' 
-                'VALUES ('
-                f'"{self.line_name.text().upper()}",' 
-                f'"{self.line_lastname.text().upper()}",' 
-                f'"{date_bir}",' 
-                f'"{self.line_cpf.text()}",'
-                f'"{self.line_adress.text()}",'
-                f'"{self.line_district.text()}",' 
-                f'"{self.line_city.text()}",' 
-                f'"{self.line_cep.text()}",'
-                f'"{self.combo_uf.currentText()}",'
-                f'"{self.line_email.text()}",'
-                f'"{self.line_tel.text()}",'
-                f'"{self.line_cellphone.text()}"'
-                ')'
-            )
+            # Se o cliente já está cadastrado 
+        consulta = self.curs_or.execute(f"SELECT * FROM clientes WHERE cpf='{self.line_cpf.text()}'")
+        if consulta > 0:
+            self.show_popup(5)
+            return
+
+            # Se email já está em uso ou é inválido
+        consulta = self.curs_or.execute(f"SELECT * FROM clientes WHERE email='{self.line_email.text()}'")
+        if consulta > 0:
+            self.show_popup(6)
+            return
+        if verificar_email(self.line_email.text()) == False:
+            self.show_popup(6)
+            return
+
+            # Se contato já está em uso ou é inválido
+        consulta = self.curs_or.execute(f"SELECT * FROM clientes WHERE contato='{self.line_tel.text()}'")
+        if consulta > 0:
+            self.show_popup(7)
+            return
+        if len(self.line_tel.text()) < 10 or len(self.line_tel.text()) > 11:
+            self.show_popup(7)
+            return
+
+        self.curs_or.execute('INSERT INTO clientes ('
+            'nome, sobrenome, nascimento, cpf, endereço, numero, bairro, cidade, cep, uf, email, contato, complemento)' 
+            'VALUES ('
+            f'"{self.line_name.text().upper()}",' 
+            f'"{self.line_lastname.text().upper()}",' 
+            f'"{date_bir}",' 
+            f'"{self.line_cpf.text()}",'
+            f'"{self.line_adress.text()}",'
+            f'"{self.line_adress_number.text()}",'
+            f'"{self.line_district.text()}",' 
+            f'"{self.line_city.text()}",' 
+            f'"{self.line_cep.text()}",'
+            f'"{self.combo_uf.currentText()}",'
+            f'"{self.line_email.text()}",'
+            f'"{self.line_tel.text()}",'
+            f'"{self.line_complement.text()}"'
+            ')'
+        )
+
+        self.show_popup(3)
+        self.limpa_campos_clientes()
+        self.set_labels()
    
         self.conn.commit()
         desconectar(self.conn)
-
 
 if __name__ == '__main__':
     main_page = Main_Page()
