@@ -121,29 +121,33 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             msg.setWindowTitle('Erro!')
             msg.setText('Todos os campos devem ser preenchidos!')
             msg.setIcon(QMessageBox.Warning)
-        if mode == 2:
+        elif mode == 2:
             msg.setWindowTitle('Atenção')
             msg.setText('CPF ou Reserva não encontrado!')
             msg.setIcon(QMessageBox.Information)
-        if mode == 3:
+        elif mode == 3:
             msg.setWindowTitle('Informação')
             msg.setText('Cliente cadastrado com sucesso!')
             msg.setIcon(QMessageBox.Information)
-        if mode == 4:
+        elif mode == 4:
             msg.setWindowTitle('Erro')
             msg.setText('CEP não encontrado ou incorreto!')
             msg.setIcon(QMessageBox.Warning)
-        if mode == 5:
+        elif mode == 5:
             msg.setWindowTitle('Atenção')
             msg.setText('CPF inválido ou já em uso!')
             msg.setIcon(QMessageBox.Information)
-        if mode == 6:
+        elif mode == 6:
             msg.setWindowTitle('Atenção')
             msg.setText('Email inválido ou já em uso!')
             msg.setIcon(QMessageBox.Information)
-        if mode == 7:
+        elif mode == 7:
             msg.setWindowTitle('Atenção')
             msg.setText('Telefone para contato inválido ou já em uso !')
+            msg.setIcon(QMessageBox.Information)
+        elif mode == 8:
+            msg.setWindowTitle('Atenção')
+            msg.setText('Já existe uma reserva para o cliente informado!')
             msg.setIcon(QMessageBox.Information)
         msg.exec_()
 
@@ -224,7 +228,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.curs_or = self.conn.cursor()
 
         if mode == 1:
-            if self.line_r_cpf != '':
+            if self.line_r_cpf.text() != '':
                 consulta = f'SELECT * FROM clientes WHERE cpf="{self.line_r_cpf.text()}"'
                 self.curs_or.execute(consulta)
                 dados = self.curs_or.fetchall()
@@ -233,6 +237,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 self.line_r_lastname.setText(dados[0][3])
                 self.line_r_email.setText(dados[0][11])
                 self.line_r_contato.setText(dados[0][12])
+            else: pass
 
         elif mode == 2:
             if self.line_checkin_cpf.text() != '':
@@ -275,8 +280,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 for c in range(0, len(dados)):
                     for c1 in range(0,3):
                         self.table_clients.setItem(c, c1, QTableWidgetItem(str(dados[c][c1])))
-            else:
-                pass   
+            else: pass   
  
         self.conn.commit()
         desconectar(self.conn)
@@ -295,7 +299,6 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.combo_payment.setCurrentIndex(0)
         self.spin_r_totald.setValue(0)
         self.spin_adults.setValue(0)
-        self.spin_children.setValue(0)
         self.date_reserve.setDate(self.dt)
         for c2 in campos:
             c2.clear()
@@ -304,45 +307,50 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.conn = conectar()
         self.curs_or = self.conn.cursor()
 
+        # Definição do campo id_cliente
+        self.curs_or.execute(f'SELECT id FROM clientes WHERE cpf="{self.line_r_cpf.text()}"')
+        id_data = self.curs_or.fetchall()
+
+        # Teste de campos
         show = False
         campos = [self.line_r_name, self.line_r_lastname, self.line_r_cpf, self.line_r_email, self.line_r_contato]
 
         date_re = self.date_reserve.date().toString(Qt.ISODate)
+
+        # Checagens:
+            # Campos em Branco 
         for c in campos:
             if (c.text() == ''):
                 show = True
-            else:
-                autentica = True
+
         if show:
             self.show_popup(1)
-            show = False
-            autentica = False
+            return
 
-        if autentica:
-            self.curs_or.execute('INSERT INTO reservas ('
-                'id, adultos, crianças, diarias, data_reserva, cliente, sobrenome, cpf, email, celular, forma_pagamento, obs)' 
-                'VALUES (' 
-                f'"{self.line_r_id.text()}",'
-                f'"{self.spin_adults.value()}",'
-                f'"{self.spin_children.value()}",' 
-                f'"{self.spin_r_totald.value()}",'
-                f'"{date_re}",' 
-                f'"{self.line_r_name.text()}",' 
-                f'"{self.line_r_lastname.text()}",' 
-                f'"{self.line_r_cpf.text()}",'
-                f'"{self.line_r_email.text()}",' 
-                f'"{self.line_r_cel.text()}",' 
-                f'"{self.combo_payment.currentText()}",' 
-                f'"{self.line_obs.text()}"'
-                ')'
+            # Se o cliente já tem reserva em seu nome
+        consulta = self.curs_or.execute(f"SELECT * FROM reservas WHERE id_cliente='{id_data[0][0]}'")
+        if consulta > 0:
+            self.show_popup(8)
+            return
+
+        self.curs_or.execute('INSERT INTO reservas ('
+            'qtde_pessoas, diarias, data_reserva, forma_pagamento, obs, id_cliente)' 
+            'VALUES (' 
+            f'"{self.spin_adults.value()}",'
+            f'"{self.spin_r_totald.value()}",'
+            f'"{date_re}",' 
+            f'"{self.combo_payment.currentText()}",' 
+            f'"{self.line_obs.text()}",'
+            f'"{id_data[0][0]}"'
+            ')'
             )
 
             # Envia E-mail
-            consulta = 'SELECT * FROM reservas WHERE cpf like ?'
-            linha = self.curs_or.execute(consulta, (f'%{self.line_r_cpf.text()}%', ))
+            # consulta = 'SELECT * FROM reservas WHERE cpf like ?'
+            # linha = self.curs_or.execute(consulta, (f'%{self.line_r_cpf.text()}%', ))
 
-            dados = [linha for linha in self.curs_or.fetchall()]
-            reserv_email(f'{dados[0][6]} {dados[0][7]}',dados[0][0])
+            # dados = [linha for linha in self.curs_or.fetchall()]
+            # reserv_email(f'{dados[0][6]} {dados[0][7]}',dados[0][0])
 
         self.conn.commit()
         desconectar(self.conn)
@@ -356,7 +364,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         for c1 in campos:
             c1.clear()
 
-    def insert_client(self): # Bug: PopUp não verifica caixa de spin
+    def insert_client(self):
         self.conn = conectar()
         self.curs_or = self.conn.cursor()
 

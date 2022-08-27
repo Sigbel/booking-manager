@@ -627,7 +627,7 @@ border-radius:5px</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>5</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -1225,7 +1225,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>50</y>
+        <y>80</y>
         <width>81</width>
         <height>16</height>
        </rect>
@@ -1238,7 +1238,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>110</y>
+        <y>140</y>
         <width>71</width>
         <height>16</height>
        </rect>
@@ -1251,7 +1251,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>140</y>
+        <y>170</y>
         <width>47</width>
         <height>13</height>
        </rect>
@@ -1267,7 +1267,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>160</y>
+        <y>190</y>
         <width>241</width>
         <height>20</height>
        </rect>
@@ -1286,7 +1286,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>530</x>
-        <y>160</y>
+        <y>190</y>
         <width>241</width>
         <height>20</height>
        </rect>
@@ -1299,7 +1299,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>160</y>
+        <y>190</y>
         <width>241</width>
         <height>20</height>
        </rect>
@@ -1318,7 +1318,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>220</y>
+        <y>250</y>
         <width>241</width>
         <height>20</height>
        </rect>
@@ -1334,7 +1334,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>220</y>
+        <y>250</y>
         <width>241</width>
         <height>20</height>
        </rect>
@@ -1347,7 +1347,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>530</x>
-        <y>140</y>
+        <y>170</y>
         <width>61</width>
         <height>16</height>
        </rect>
@@ -1360,7 +1360,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>140</y>
+        <y>170</y>
         <width>47</width>
         <height>13</height>
        </rect>
@@ -1373,7 +1373,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>200</y>
+        <y>230</y>
         <width>47</width>
         <height>13</height>
        </rect>
@@ -1386,7 +1386,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>200</y>
+        <y>230</y>
         <width>71</width>
         <height>16</height>
        </rect>
@@ -1399,7 +1399,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>260</y>
+        <y>290</y>
         <width>71</width>
         <height>16</height>
        </rect>
@@ -1412,7 +1412,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>290</y>
+        <y>320</y>
         <width>161</width>
         <height>16</height>
        </rect>
@@ -1425,7 +1425,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>290</y>
+        <y>320</y>
         <width>111</width>
         <height>16</height>
        </rect>
@@ -1438,7 +1438,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>310</y>
+        <y>340</y>
         <width>491</width>
         <height>20</height>
        </rect>
@@ -1451,7 +1451,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>700</x>
-        <y>350</y>
+        <y>380</y>
         <width>75</width>
         <height>23</height>
        </rect>
@@ -1464,7 +1464,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>430</x>
-        <y>50</y>
+        <y>80</y>
         <width>81</width>
         <height>16</height>
        </rect>
@@ -1477,7 +1477,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>310</y>
+        <y>340</y>
         <width>241</width>
         <height>22</height>
        </rect>
@@ -1506,9 +1506,9 @@ border-radius:5px</string>
      <widget class="QSpinBox" name="spin_adults">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>70</y>
-        <width>81</width>
+        <x>30</x>
+        <y>100</y>
+        <width>101</width>
         <height>31</height>
        </rect>
       </property>
@@ -1516,47 +1516,24 @@ border-radius:5px</string>
        <enum>QAbstractSpinBox::DefaultStepType</enum>
       </property>
      </widget>
-     <widget class="QSpinBox" name="spin_children">
-      <property name="geometry">
-       <rect>
-        <x>190</x>
-        <y>71</y>
-        <width>81</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>30</x>
         <y>80</y>
         <width>47</width>
         <height>13</height>
        </rect>
       </property>
       <property name="text">
-       <string>Adultos</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_11">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>80</y>
-        <width>47</width>
-        <height>13</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Crianças</string>
+       <string>Hóspedes</string>
       </property>
      </widget>
      <widget class="QPushButton" name="btn_clear_all_r">
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>350</y>
+        <y>380</y>
         <width>91</width>
         <height>23</height>
        </rect>
@@ -1569,7 +1546,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>430</x>
-        <y>70</y>
+        <y>100</y>
         <width>91</width>
         <height>31</height>
        </rect>
@@ -1589,7 +1566,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>70</y>
+        <y>100</y>
         <width>131</width>
         <height>31</height>
        </rect>
