@@ -627,7 +627,7 @@ border-radius:5px</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>2</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -1221,19 +1221,6 @@ border-radius:5px</string>
        <string>PAX</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_25">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>80</y>
-        <width>81</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Total de Diárias</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_26">
       <property name="geometry">
        <rect>
@@ -1463,14 +1450,14 @@ border-radius:5px</string>
      <widget class="QLabel" name="label_37">
       <property name="geometry">
        <rect>
-        <x>430</x>
+        <x>290</x>
         <y>80</y>
         <width>81</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Data da Reserva</string>
+       <string>Data da Entrada</string>
       </property>
      </widget>
      <widget class="QComboBox" name="combo_payment">
@@ -1542,34 +1529,43 @@ border-radius:5px</string>
        <string>Limpar Campos</string>
       </property>
      </widget>
-     <widget class="QDateEdit" name="date_reserve">
+     <widget class="QDateTimeEdit" name="date_entrada">
       <property name="geometry">
        <rect>
-        <x>430</x>
+        <x>290</x>
         <y>100</y>
-        <width>91</width>
+        <width>121</width>
         <height>31</height>
        </rect>
       </property>
       <property name="calendarPopup">
        <bool>true</bool>
       </property>
-      <property name="date">
-       <date>
-        <year>3000</year>
-        <month>1</month>
-        <day>1</day>
-       </date>
-      </property>
      </widget>
-     <widget class="QSpinBox" name="spin_r_totald">
+     <widget class="QDateTimeEdit" name="date_saida">
       <property name="geometry">
        <rect>
-        <x>290</x>
+        <x>420</x>
         <y>100</y>
-        <width>131</width>
+        <width>121</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="calendarPopup">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_89">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>80</y>
+        <width>81</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Data Saída</string>
       </property>
      </widget>
     </widget>

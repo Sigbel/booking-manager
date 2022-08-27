@@ -60,7 +60,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         desconectar(self.conn)
 
         # Setar Default Date (Guia Reservas e Clientes)
-        self.date_reserve.setDate(self.dt)
+        self.date_entrada.setDate(self.dt)
+        self.date_saida.setDate(self.dt)
         self.date_birth.setDate(self.dt)
 
         # Botões Gerais 
@@ -315,7 +316,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         show = False
         campos = [self.line_r_name, self.line_r_lastname, self.line_r_cpf, self.line_r_email, self.line_r_contato]
 
-        date_re = self.date_reserve.date().toString(Qt.ISODate)
+        date_re = self.date_entrada.dateTime().toString(Qt.ISODate).replace('T', ' ')
+        date_sa = self.date_saida.dateTime().toString(Qt.ISODate).replace('T', ' ')
 
         # Checagens:
             # Campos em Branco 
@@ -334,11 +336,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             return
 
         self.curs_or.execute('INSERT INTO reservas ('
-            'qtde_pessoas, diarias, data_reserva, forma_pagamento, obs, id_cliente)' 
+            'qtde_pessoas, data_entrada, data_saida, forma_pagamento, obs, id_cliente)' 
             'VALUES (' 
             f'"{self.spin_adults.value()}",'
-            f'"{self.spin_r_totald.value()}",'
             f'"{date_re}",' 
+            f'"{date_sa}",' 
             f'"{self.combo_payment.currentText()}",' 
             f'"{self.line_obs.text()}",'
             f'"{id_data[0][0]}"'
