@@ -452,6 +452,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.conn.commit()
         desconectar(self.conn)
 
+
 if __name__ == '__main__':
     main_page = Main_Page()
     main_page.go_login()
