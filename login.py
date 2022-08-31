@@ -55,6 +55,7 @@ class LoginPage(QMainWindow, Ui_MainWindow):
 qt = QApplication(sys.argv)
 log_page = LoginPage()
 
+
 def iniciar():
     log_page.show()
     qt.exec_()
