@@ -627,7 +627,7 @@ border-radius:5px</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>4</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -3456,7 +3456,7 @@ border-radius:5px</string>
         <x>10</x>
         <y>70</y>
         <width>241</width>
-        <height>20</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="placeholderText">
@@ -3467,7 +3467,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>100</y>
+        <y>120</y>
         <width>111</width>
         <height>16</height>
        </rect>
@@ -3480,9 +3480,9 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>120</y>
+        <y>139</y>
         <width>241</width>
-        <height>20</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="placeholderText">
@@ -3493,7 +3493,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>170</y>
+        <y>230</y>
         <width>71</width>
         <height>16</height>
        </rect>
@@ -3505,10 +3505,10 @@ border-radius:5px</string>
      <widget class="QPushButton" name="pushButton_6">
       <property name="geometry">
        <rect>
-        <x>180</x>
-        <y>150</y>
-        <width>75</width>
-        <height>23</height>
+        <x>174</x>
+        <y>180</y>
+        <width>81</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -3518,8 +3518,8 @@ border-radius:5px</string>
      <widget class="QLabel" name="label_49">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>200</y>
+        <x>10</x>
+        <y>250</y>
         <width>71</width>
         <height>16</height>
        </rect>
@@ -3531,8 +3531,8 @@ border-radius:5px</string>
      <widget class="QLineEdit" name="line_checkout_room">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>220</y>
+        <x>10</x>
+        <y>270</y>
         <width>221</width>
         <height>20</height>
        </rect>
@@ -3542,7 +3542,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>260</x>
-        <y>200</y>
+        <y>250</y>
         <width>81</width>
         <height>16</height>
        </rect>
@@ -3555,7 +3555,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>260</x>
-        <y>220</y>
+        <y>270</y>
         <width>221</width>
         <height>20</height>
        </rect>
@@ -3565,7 +3565,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>260</y>
+        <y>290</y>
         <width>71</width>
         <height>16</height>
        </rect>
@@ -3578,7 +3578,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>280</y>
+        <y>310</y>
         <width>471</width>
         <height>20</height>
        </rect>
@@ -3588,9 +3588,9 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>310</y>
+        <y>340</y>
         <width>951</width>
-        <height>281</height>
+        <height>251</height>
        </rect>
       </property>
      </widget>
@@ -3598,7 +3598,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>240</x>
-        <y>100</y>
+        <y>110</y>
         <width>47</width>
         <height>13</height>
        </rect>

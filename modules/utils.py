@@ -8,8 +8,8 @@ def conectar():
         conn = MySQLdb.connect(
             db = 'booking_manager',
             host = 'localhost',
-            user = 'Belgamo',
-            password = '1234')
+            user = 'belgamo',
+            password = '123')
         return conn
     except MySQLdb.Error as e:
         print(f'Erro na conexão do MySQL Server ({e})')
