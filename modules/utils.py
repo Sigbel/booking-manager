@@ -1,6 +1,8 @@
 import MySQLdb
 import pycep_correios
 import re
+import datetime
+from pandas import date_range
 
 # Conexão e Desconexão com Banco de Dados
 def conectar():
@@ -19,7 +21,7 @@ def desconectar(conn):
         conn.close()  
 
 # Busca de logradouro através do CEP
-def find_cep(cep):
+def find_cep(cep: str):
     """Função para encontrar logradouro a partir do CEP"""
     try:
         adress = pycep_correios.get_address_from_cep(cep)
@@ -49,4 +51,26 @@ def verificar_email(email: str):
         return True
     else:
         return False
+
+# Verificação de Range de Datas
+def range_dates(start: str, end: str):
+    """Função para verificar disponibilidade de reservas no banco de dados
+            start: data de entrada
+            end: data de saída
+    """
+    conn = conectar()
+    curs_or = conn.cursor()
+    
+    c = datetime.datetime.strptime(start, "%d-%m-%Y")
+    f = datetime.datetime.strptime(end, "%d-%m-%Y")
+
+    data_gerada = date_range(c, f)
+    
+    conn.commit()
+    desconectar(conn)
+    
+
+
+
+
 

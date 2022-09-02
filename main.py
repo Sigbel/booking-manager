@@ -46,17 +46,16 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         ')')
         self.curs_or.execute('CREATE TABLE IF NOT EXISTS reservas (' 
                         'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
-                        'adultos INT NOT NULL,'
-                        'crianças INT NOT NULL,'
-                        'diarias INT NOT NULL,'
-                        'data_reserva DATE NOT NULL,'
+                        'qtde_pessoas INT NOT NULL,'
+                        'data_entrada INT NOT NULL,'
+                        'data_saida DATE NOT NULL,'
                         'forma_pagamento VARCHAR(50) NOT NULL,'
                         'obs VARCHAR(200) NOT NULL,'
+                        'quarto VARCHAR (5) NOT NULL,'
+                        'ativa BOOLEAN NOT NULL,'
                         'id_cliente INT NULL,'
                         'FOREIGN KEY (id_cliente) REFERENCES clientes(id)'
                         ')')
-        # self.curs_or.execute()
-        # self.curs_or.execute()
 
         desconectar(self.conn)
 
@@ -299,9 +298,9 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.line_r_contato, self.line_obs]
 
         self.combo_payment.setCurrentIndex(0)
-        self.spin_r_totald.setValue(0)
         self.spin_adults.setValue(0)
-        self.date_reserve.setDate(self.dt)
+        self.date_entrada.setDate(self.dt)
+        self.date_saida.setDate(self.dt)
         for c2 in campos:
             c2.clear()
 
@@ -336,17 +335,21 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             self.show_popup(8)
             return
 
+            # Verificação do range de datas
+
         self.curs_or.execute('INSERT INTO reservas ('
-            'qtde_pessoas, data_entrada, data_saida, forma_pagamento, obs, id_cliente)' 
+            'qtde_pessoas, data_entrada, data_saida, forma_pagamento, obs, ativa, id_cliente)' 
             'VALUES (' 
             f'"{self.spin_adults.value()}",'
             f'"{date_re}",' 
             f'"{date_sa}",' 
             f'"{self.combo_payment.currentText()}",' 
             f'"{self.line_obs.text()}",'
+            f'"{True}",'
             f'"{id_data[0][0]}"'
             ')'
             )
+
 
             # Envia E-mail
             # consulta = 'SELECT * FROM reservas WHERE cpf like ?'
