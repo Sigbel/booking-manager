@@ -8,7 +8,7 @@ from pandas import date_range
 def conectar():
     try:
         conn = MySQLdb.connect(
-            db = 'booking_manager',
+            db = 'booking_manager_test',
             host = 'localhost',
             user = 'belgamo',
             password = '123')
@@ -52,25 +52,5 @@ def verificar_email(email: str):
     else:
         return False
 
-# Verificação de Range de Datas
-def range_dates(start: str, end: str):
-    """Função para verificar disponibilidade de reservas no banco de dados
-            start: data de entrada
-            end: data de saída
-    """
-    conn = conectar()
-    curs_or = conn.cursor()
-    
-    c = datetime.datetime.strptime(start, "%d-%m-%Y")
-    f = datetime.datetime.strptime(end, "%d-%m-%Y")
 
-    data_gerada = date_range(c, f)
-    
-    conn.commit()
-    desconectar(conn)
-    
-
-
-
-
-
+        
