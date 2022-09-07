@@ -1,13 +1,13 @@
 import sys
 import login
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem, QCheckBox
 from PyQt5.QtCore import Qt
 from styles.main_window import *
 from datetime import date, datetime
 from modules.cpf_validator import valida_CPF
 from modules.email_reserva import reserv_email
-from modules.utils import conectar, desconectar, find_cep, verificar_email, verify_dates
+from modules.utils import conectar, desconectar, find_cep, verificar_email
 from pandas import date_range
 
 class Main_Page(QMainWindow, Ui_MainWindow):
@@ -60,6 +60,9 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         desconectar(self.conn)
 
+        # Setar Checkboxes (Guia Quartos)
+        self.set_checkboxes()
+
         # Setar Default Date (Guia Reservas e Clientes)
         self.date_entrada.setDate(self.dt)
         self.date_saida.setDate(self.dt)
@@ -94,6 +97,14 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.btn_visu_reserv.clicked.connect(lambda: self.verifica_banco_r(2))
         self.btn_checkin_2.clicked.connect(self.insert_checkin)
 
+        # Extras (Alterações em QLines e outros Widgets)
+        self.line_checkin_cpf.textChanged.connect(lambda: self.change_button(1))
+        self.line_checkin_number.textChanged.connect(lambda: self.change_button(1))
+        self.list_q_d_pq.itemClicked.connect(lambda: self.label_room_click(1))
+        self.list_q_d_med.itemClicked.connect(lambda: self.label_room_click(2))
+        self.list_q_d_gran.itemClicked.connect(lambda: self.label_room_click(3))
+        self.list_q_d_luxo.itemClicked.connect(lambda: self.label_room_click(4))
+
         # Setar tela inicial para guia de clientes
         self.tabWidget.setCurrentIndex(1)
         if self.tabWidget.currentIndex() == 1:
@@ -126,7 +137,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         elif mode == 2:
             msg.setWindowTitle('Atenção')
             msg.setText('CPF ou Reserva não encontrado!')
-            msg.setIcon(QMessageBox.Information)
+            msg.setIcon(QMessageBox.Warning)
         elif mode == 3:
             msg.setWindowTitle('Informação')
             msg.setText('Cliente cadastrado com sucesso!')
@@ -138,19 +149,19 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         elif mode == 5:
             msg.setWindowTitle('Atenção')
             msg.setText('CPF inválido ou já em uso!')
-            msg.setIcon(QMessageBox.Information)
+            msg.setIcon(QMessageBox.Warning)
         elif mode == 6:
             msg.setWindowTitle('Atenção')
             msg.setText('Email inválido ou já em uso!')
-            msg.setIcon(QMessageBox.Information)
+            msg.setIcon(QMessageBox.Warning)
         elif mode == 7:
             msg.setWindowTitle('Atenção')
             msg.setText('Telefone para contato inválido ou já em uso !')
-            msg.setIcon(QMessageBox.Information)
+            msg.setIcon(QMessageBox.Warning)
         elif mode == 8:
             msg.setWindowTitle('Atenção')
             msg.setText('Já existe uma reserva para o cliente informado!')
-            msg.setIcon(QMessageBox.Information)
+            msg.setIcon(QMessageBox.information)
         elif mode == 9:
             msg.setWindowTitle('Atenção')
             msg.setText('Nenhum quarto disponível para as datas informadas!')
@@ -158,14 +169,14 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         elif mode == 10:
             msg.setWindowTitle('Atenção')
             msg.setText('Número de hóspedes não pode ultrapassar 5!')
-            msg.setIcon(QMessageBox.Information)
+            msg.setIcon(QMessageBox.Warning)
         elif mode == 11:
             msg.setWindowTitle('Atenção')
-            msg.setText('Datas incorretas!')
+            msg.setText('Reserva incluída com sucesso!')
             msg.setIcon(QMessageBox.Information)
         elif mode == 12:
             msg.setWindowTitle('Atenção')
-            msg.setText('Datas incorretas! 2')
+            msg.setText('Datas incorretas!')
             msg.setIcon(QMessageBox.Information)
         msg.exec_()
 
@@ -173,6 +184,22 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         labels = [self.test_cpf, self.test_contato, self.test_cep]
         for c in labels:
             c.setVisible(False)
+    
+    def set_checkboxes(self):
+        self.conn = conectar()
+        self.curs_or = self.conn.cursor()
+
+        consulta = f"""SELECT q.quarto 
+	                        FROM reservas AS r, quartos AS q, checkins AS ch
+                            WHERE r.id_quarto = q.id and ch.id_reserva = r.id"""
+        self.curs_or.execute(consulta)
+        dados = self.curs_or.fetchall()
+
+        for i in dados:
+            check = f"self.checkBox_{i[0]}.setChecked(1)"
+            exec(check)
+
+        desconectar(self.conn)
 
     def seleciona_tab(self, value: int, mode: int):
         self.tabWidget.setCurrentIndex(value)
@@ -190,8 +217,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         value2 = index.sibling(index.row(),1).data()
         value3 = index.sibling(index.row(),2).data()
 
-        consulta2 = f'SELECT * FROM clientes WHERE id={value1} and nome="{value2}" and cpf="{value3}"'
-        self.curs_or.execute(consulta2)
+        consulta = f'SELECT * FROM clientes WHERE id={value1} and nome="{value2}" and cpf="{value3}"'
+        self.curs_or.execute(consulta)
         dados = self.curs_or.fetchall()
 
         self.line_c_name.setText(dados[0][1])   
@@ -209,6 +236,51 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.line_c_complement.setText(dados[0][13])
         
         desconectar(self.conn)
+
+    def label_room_click(self, mode):
+        # try:
+            self.conn = conectar()
+            self.curs_or = self.conn.cursor()
+            
+            if mode == 1:
+                temp = self.list_q_d_pq.currentItem().text().split(" ")
+            elif mode == 2:
+                temp = self.list_q_d_med.currentItem().text().split(" ")
+            elif mode == 3:
+                temp = self.list_q_d_gran.currentItem().text().split(" ")
+            else:
+                temp = self.list_q_d_luxo.currentItem().text().split(" ")
+
+            consulta = f"""SELECT c.nome, c.cpf, r.id, r.qtde_pessoas, r.ativa, q.tipo_quarto, q.quarto, r.obs
+                                FROM clientes AS c, reservas AS r, quartos AS q
+                                WHERE r.id_quarto = q.id AND r.id_cliente = c.id AND r.ativa=1 AND q.quarto={temp[1]}"""
+            self.curs_or.execute(consulta)
+            dados = self.curs_or.fetchall()
+
+            self.line_q_name.setText(dados[0][0])
+            self.line_q_cpf.setText(dados[0][1])
+            self.line_q_rnumber.setText(str(dados[0][2]))
+            self.line_q_roomtype.setText(dados[0][5])
+            self.line_q_pax.setText(str(dados[0][3]))
+            self.line_q_obs.setText(dados[0][7])
+
+            desconectar(self.conn)
+
+        # except IndexError: 
+        #     dados = [self.line_q_name, self.line_q_cpf, self.line_q_rnumber, self.line_q_roomtype, self.line_q_pax,self.line_q_obs]
+        #     for i in dados:
+        #         i.clear()
+        #     return
+
+    def change_button(self, mode):
+        if mode == 1:
+            self.btn_checkin_2.setEnabled(0)
+
+            # Limpa campos
+            dados = [self.line_checkin_cpf_2, self.line_checkin_name, self.line_checkin_lastname, self.line_checkin_email,
+            self.line_checkin_contact, self.line_checkin_room, self.line_checkin_room_2, self.line_checkin_roomtype]
+            for i in dados:
+                i.clear()
 
     def set_adress(self, dados):
         self.line_adress.setText(dados["logradouro"])
@@ -262,27 +334,30 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 if self.line_checkin_cpf.text() != '':
                     self.line_checkin_number.clear()
 
-                    consulta = f"""SELECT r.id, r.qtde_pessoas, r.obs, q.quarto, q.tipo_quarto, c.cpf
+                    consulta = f"""SELECT r.id, r.qtde_pessoas, r.obs, q.quarto, q.tipo_quarto, c.cpf, c.nome, c.sobrenome, c.email, c.contato
                                         FROM reservas AS r, quartos AS q, clientes AS c
                                         WHERE r.id_quarto = q.id and r.id_cliente = c.id and c.cpf={self.line_checkin_cpf.text()}"""
                     self.curs_or.execute(consulta)
                     dados = self.curs_or.fetchall()
 
-
-
-                    if dados == []:
+                    if len(dados) == 0:
                         self.show_popup(2)
                         return
                     else:
-                        self.line_checkin_room.setText(str(dados[0][3]))
+                        self.line_checkin_room.setText("Quarto " + str(dados[0][3]))
                         self.line_checkin_room_2.setText(str(dados[0][1]))
                         self.line_checkin_roomtype.setText(dados[0][4])
                         self.line_checkin_status.setText(dados[0][2])
+                        self.line_checkin_name.setText(dados[0][6])
+                        self.line_checkin_lastname.setText(dados[0][7])
+                        self.line_checkin_email.setText(dados[0][8])
+                        self.line_checkin_contact.setText(dados[0][9])
+                        self.line_checkin_cpf_2.setText(dados[0][5])
 
                         self.btn_checkin_2.setEnabled(1)
 
                 elif self.line_checkin_number.text() != '':
-                    consulta = f"""SELECT r.id, r.qtde_pessoas, r.obs, q.quarto, q.tipo_quarto, c.cpf
+                    consulta = f"""SELECT r.id, r.qtde_pessoas, r.obs, q.quarto, q.tipo_quarto, c.cpf, c.nome, c.sobrenome, c.email, c.contato
                                         FROM reservas AS r, quartos AS q, clientes AS c
                                         WHERE r.id_quarto = q.id and r.id_cliente = c.id and r.id={self.line_checkin_number.text()}"""
                     self.curs_or.execute(consulta)
@@ -292,10 +367,15 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         self.show_popup(2)
                         return
                     else:
-                        self.line_checkin_room.setText(str(dados[0][3]))
+                        self.line_checkin_room.setText("Quarto " + str(dados[0][3]))
                         self.line_checkin_room_2.setText(str(dados[0][1]))
                         self.line_checkin_roomtype.setText(dados[0][4])
                         self.line_checkin_status.setText(dados[0][2])
+                        self.line_checkin_name.setText(dados[0][6])
+                        self.line_checkin_lastname.setText(dados[0][7])
+                        self.line_checkin_email.setText(dados[0][8])
+                        self.line_checkin_contact.setText(dados[0][9])
+                        self.line_checkin_cpf_2.setText(dados[0][5])
 
                         self.btn_checkin_2.setEnabled(1)
 
@@ -304,10 +384,12 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                     return
             
             except:
+                self.show_popup(2)
+            
                 campos = [self.line_checkin_room, self.line_checkin_room_2, self.line_checkin_roomtype, self.line_checkin_status,
                 self.line_checkin_number, self.line_checkin_cpf]
                 for c1 in campos:
-                    c1.clear()
+                    c1.clear() 
             
         elif mode == 3:
             if self.line_proc_client.text() != '':
@@ -335,7 +417,6 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         desconectar(self.conn)
 
     def insert_checkin(self):
-        self.verifica_banco_r(2)
         
         self.conn = conectar()
         self.curs_or = self.conn.cursor()
@@ -346,6 +427,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 '{self.line_checkin_number.text()}',
                 '{datetime.now()}')"""
                 )
+
+        # self.curs_or.execute(f"""UPDATE reservas SET ativa=1 WHERE """)
 
         self.conn.commit()
         desconectar(self.conn)
@@ -368,11 +451,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         data_gerada = set(date_range(start, end))
 
         # Consulta ao banco por datas disponíveis
-        if tipo_quarto == 'p':
+        if tipo_quarto == 'Pequeno':
             contador = quartos_p
-        elif tipo_quarto == 'm':
+        elif tipo_quarto == 'Médio':
             contador = quartos_m
-        elif tipo_quarto == 'g':
+        elif tipo_quarto == 'Grande':
             contador = quartos_g
         else:
             contador = quartos_l
@@ -473,7 +556,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         dt_conv = datetime.strptime(dt_init, "%Y-%m-%d")
 
         if date_re < date_re:
-            self.show_popup(11)
+            self.show_popup(12)
             return
         
         if date_re < dt_conv or date_sa < dt_conv:
@@ -482,13 +565,13 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         
             # Quantidade de hóspedes
         if self.spin_adults.value() <= 2:
-            tipo_quarto = 'p'
+            tipo_quarto = 'Pequeno'
         elif self.spin_adults.value() == 3:
-            tipo_quarto = 'm'
+            tipo_quarto = 'Médio'
         elif self.spin_adults.value() == 4:
-            tipo_quarto = 'g'
+            tipo_quarto = 'Grande'
         elif self.spin_adults.value() == 5:
-            tipo_quarto = 'l'
+            tipo_quarto = 'Luxo'
         else:
             self.show_popup(10)
             return
@@ -510,19 +593,13 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             f'"{self.spin_adults.value()}",'
             f'"{self.combo_payment.currentText()}",' 
             f'"{self.line_obs.text()}",'
-            f'"{1}",'
+            f'"{0}",'
             f'"{id_data[0][0]}",'
             f'"{id_data2[0][0]}"'
             ')'
             )
 
-            # Envia E-mail
-            # consulta = 'SELECT * FROM reservas WHERE cpf like ?'
-            # linha = self.curs_or.execute(consulta, (f'%{self.line_r_cpf.text()}%', ))
-
-            # dados = [linha for linha in self.curs_or.fetchall()]
-            # reserv_email(f'{dados[0][6]} {dados[0][7]}',dados[0][0])
-
+        self.show_popup(11)
         self.conn.commit()
         desconectar(self.conn)
 

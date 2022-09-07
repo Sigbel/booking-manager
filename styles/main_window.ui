@@ -347,8 +347,11 @@ border-radius:5px</string>
       <bold>true</bold>
      </font>
     </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
     <property name="text">
-     <string> 🧾  Cadastro de Hóspedes</string>
+     <string>🧾  Cadastro de Hóspedes</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_checkin">
@@ -627,7 +630,7 @@ border-radius:5px</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>4</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -716,14 +719,23 @@ border-radius:5px</string>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAsNeeded</enum>
       </property>
       <property name="horizontalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOff</enum>
       </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
       <property name="autoScroll">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="autoScrollMargin">
        <number>16</number>
@@ -734,11 +746,17 @@ border-radius:5px</string>
       <property name="tabKeyNavigation">
        <bool>false</bool>
       </property>
+      <property name="showGrid">
+       <bool>true</bool>
+      </property>
       <property name="wordWrap">
        <bool>true</bool>
       </property>
       <attribute name="horizontalHeaderCascadingSectionResizes">
        <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>100</number>
       </attribute>
       <attribute name="horizontalHeaderHighlightSections">
        <bool>true</bool>
@@ -2294,7 +2312,7 @@ border-radius:5px</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>80</y>
+        <y>90</y>
         <width>101</width>
         <height>16</height>
        </rect>
@@ -2308,7 +2326,7 @@ border-radius:5px</string>
        <rect>
         <x>10</x>
         <y>50</y>
-        <width>781</width>
+        <width>801</width>
         <height>16</height>
        </rect>
       </property>
@@ -2316,10 +2334,10 @@ border-radius:5px</string>
        <string notr="true">color:rgb(116, 116, 116)</string>
       </property>
       <property name="text">
-       <string>OBS: Quartos divididos em: PEQUENO (duas camas de solteiro), MÉDIO (Uma cama de casal e uma de solteiro), GRANDE (duas camas de casal e duas de solteiro).</string>
+       <string>OBS: Quartos divididos em: PEQUENO (duas camas de solteiro), MÉDIO (Uma cama de casal e uma de solteiro), GRANDE (duas camas de casal e duas de solteiro), </string>
       </property>
      </widget>
-     <widget class="QListWidget" name="list_q_d_pq">
+     <widget class="QListWidget" name="list_pq_fundo">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -2340,140 +2358,6 @@ border-radius:5px</string>
       <property name="resizeMode">
        <enum>QListView::Fixed</enum>
       </property>
-      <item>
-       <property name="text">
-        <string>Quarto 11</string>
-       </property>
-       <property name="font">
-        <font>
-         <kerning>true</kerning>
-        </font>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-       <property name="flags">
-        <set>ItemIsSelectable|ItemIsEnabled</set>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 12</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-       <property name="flags">
-        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsEnabled</set>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 13</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-       <property name="flags">
-        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsEnabled</set>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 14</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 15</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 21</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 22</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 23</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 24</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 25</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 31</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 32</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 33</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 34</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 35</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
      </widget>
      <widget class="QLabel" name="label_69">
       <property name="geometry">
@@ -2491,11 +2375,14 @@ border-radius:5px</string>
      <widget class="QListWidget" name="list_q_d_med">
       <property name="geometry">
        <rect>
-        <x>170</x>
-        <y>130</y>
-        <width>141</width>
-        <height>331</height>
+        <x>190</x>
+        <y>132</y>
+        <width>111</width>
+        <height>321</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
@@ -2510,124 +2397,79 @@ border-radius:5px</string>
        <property name="text">
         <string>Quarto 41</string>
        </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 42</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
        </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 43</string>
        </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 44</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
        </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 45</string>
        </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 51</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
        </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 52</string>
        </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 53</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
        </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 54</string>
        </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 55</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
        </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 61</string>
        </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 62</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
        </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 63</string>
        </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 64</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
        </property>
       </item>
       <item>
        <property name="text">
         <string>Quarto 65</string>
        </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
       </item>
      </widget>
-     <widget class="QListWidget" name="list_q_d_gran">
+     <widget class="QListWidget" name="list_gran_fundo">
       <property name="geometry">
        <rect>
         <x>320</x>
@@ -2645,126 +2487,6 @@ border-radius:5px</string>
       <property name="resizeMode">
        <enum>QListView::Fixed</enum>
       </property>
-      <item>
-       <property name="text">
-        <string>Quarto 71</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 72</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 73</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 74</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 75</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 81</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 82</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 83</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 84</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 85</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 91</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 92</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 93</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 94</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 95</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
      </widget>
      <widget class="QLabel" name="label_70">
       <property name="geometry">
@@ -2792,13 +2514,13 @@ border-radius:5px</string>
        <string>GRANDE</string>
       </property>
      </widget>
-     <widget class="QListWidget" name="list_q_d_luxo">
+     <widget class="QListWidget" name="list_luxo_fundo">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>500</y>
+        <y>490</y>
         <width>441</width>
-        <height>91</height>
+        <height>101</height>
        </rect>
       </property>
       <property name="editTriggers">
@@ -2810,52 +2532,12 @@ border-radius:5px</string>
       <property name="resizeMode">
        <enum>QListView::Fixed</enum>
       </property>
-      <item>
-       <property name="text">
-        <string>Quarto 101</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 102</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 103</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 104</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quarto 105</string>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
      </widget>
      <widget class="QLabel" name="label_73">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>480</y>
+        <y>471</y>
         <width>47</width>
         <height>13</height>
        </rect>
@@ -2911,7 +2593,10 @@ border-radius:5px</string>
        <string>Cliente:</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_2">
+     <widget class="QLineEdit" name="line_q_name">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>540</x>
@@ -2960,7 +2645,10 @@ border-radius:5px</string>
        <string>CPF:</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_3">
+     <widget class="QLineEdit" name="line_q_cpf">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>710</x>
@@ -2970,7 +2658,10 @@ border-radius:5px</string>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_4">
+     <widget class="QLineEdit" name="line_q_rnumber">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>620</x>
@@ -2980,7 +2671,10 @@ border-radius:5px</string>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_5">
+     <widget class="QLineEdit" name="line_q_roomtype">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>620</x>
@@ -3008,41 +2702,21 @@ border-radius:5px</string>
        <rect>
         <x>500</x>
         <y>320</y>
-        <width>47</width>
+        <width>51</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Adultos:</string>
+       <string>Hóspedes:</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_6">
+     <widget class="QLineEdit" name="line_q_pax">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>550</x>
-        <y>320</y>
-        <width>131</width>
-        <height>20</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_81">
-      <property name="geometry">
-       <rect>
-        <x>690</x>
-        <y>320</y>
-        <width>47</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Crianças:</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit_7">
-      <property name="geometry">
-       <rect>
-        <x>740</x>
+        <x>560</x>
         <y>320</y>
         <width>131</width>
         <height>20</height>
@@ -3062,7 +2736,10 @@ border-radius:5px</string>
        <string>OBS:</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_8">
+     <widget class="QLineEdit" name="line_q_obs">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>500</x>
@@ -3072,6 +2749,2068 @@ border-radius:5px</string>
        </rect>
       </property>
      </widget>
+     <widget class="QLabel" name="label_91">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>70</y>
+        <width>231</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(116, 116, 116)</string>
+      </property>
+      <property name="text">
+       <string>LUXO (Duas camas de casal e uma de solteiro).</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_11">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>133</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_12">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>150</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_13">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>167</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_14">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>184</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_15">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>201</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_21">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>218</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_22">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>235</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_23">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>252</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_24">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>269</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_25">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>286</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_31">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>303</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_32">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>320</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_33">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>337</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_34">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>354</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_35">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>371</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QListView" name="list_med_fundo">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>130</y>
+        <width>141</width>
+        <height>331</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_42">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>150</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_62">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>320</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_65">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>371</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_45">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>201</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_64">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>354</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_54">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>269</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_51">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>218</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_55">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>286</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_53">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>252</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_63">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>337</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_44">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>184</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_41">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>133</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_43">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>167</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_61">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>303</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_52">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>176</x>
+        <y>235</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="list_q_d_pq">
+      <property name="geometry">
+       <rect>
+        <x>39</x>
+        <y>132</y>
+        <width>111</width>
+        <height>321</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::NoSelection</enum>
+      </property>
+      <property name="resizeMode">
+       <enum>QListView::Fixed</enum>
+      </property>
+      <item>
+       <property name="text">
+        <string>Quarto 11</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 12</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 13</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 14</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 15</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 21</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 22</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 23</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 24</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 25</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 31</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 32</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 33</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 34</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 35</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_84">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>270</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_85">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>287</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_94">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>355</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_72">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>151</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_74">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>185</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_75">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>202</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_91">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>304</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_73">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>168</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_81">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>219</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_93">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>338</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_82">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>236</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_92">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>321</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_95">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>372</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_71">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>134</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_83">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>326</x>
+        <y>253</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="list_q_d_gran">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>133</y>
+        <width>111</width>
+        <height>321</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::NoSelection</enum>
+      </property>
+      <property name="resizeMode">
+       <enum>QListView::Fixed</enum>
+      </property>
+      <item>
+       <property name="text">
+        <string>Quarto 71</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 72</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 73</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 74</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 75</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 81</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 82</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 83</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 84</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 85</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 91</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 92</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 93</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 94</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 95</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_104">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>26</x>
+        <y>549</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_101">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>26</x>
+        <y>498</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_102">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>26</x>
+        <y>515</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_105">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>26</x>
+        <y>566</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_103">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>26</x>
+        <y>532</y>
+        <width>16</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="list_q_d_luxo">
+      <property name="geometry">
+       <rect>
+        <x>41</x>
+        <y>497</y>
+        <width>411</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::NoSelection</enum>
+      </property>
+      <property name="resizeMode">
+       <enum>QListView::Fixed</enum>
+      </property>
+      <item>
+       <property name="text">
+        <string>Quarto 101</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 102</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 103</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 104</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Quarto 105</string>
+       </property>
+      </item>
+     </widget>
+     <zorder>list_med_fundo</zorder>
+     <zorder>list_pq_fundo</zorder>
+     <zorder>listView_2</zorder>
+     <zorder>label_54</zorder>
+     <zorder>line_6</zorder>
+     <zorder>label_66</zorder>
+     <zorder>label_68</zorder>
+     <zorder>label_69</zorder>
+     <zorder>list_q_d_med</zorder>
+     <zorder>list_gran_fundo</zorder>
+     <zorder>label_70</zorder>
+     <zorder>label_72</zorder>
+     <zorder>list_luxo_fundo</zorder>
+     <zorder>label_73</zorder>
+     <zorder>label_74</zorder>
+     <zorder>line_8</zorder>
+     <zorder>label_75</zorder>
+     <zorder>line_q_name</zorder>
+     <zorder>label_76</zorder>
+     <zorder>label_77</zorder>
+     <zorder>label_79</zorder>
+     <zorder>line_q_cpf</zorder>
+     <zorder>line_q_rnumber</zorder>
+     <zorder>line_q_roomtype</zorder>
+     <zorder>label_78</zorder>
+     <zorder>label_80</zorder>
+     <zorder>line_q_pax</zorder>
+     <zorder>label_82</zorder>
+     <zorder>line_q_obs</zorder>
+     <zorder>label_91</zorder>
+     <zorder>checkBox_11</zorder>
+     <zorder>checkBox_12</zorder>
+     <zorder>checkBox_13</zorder>
+     <zorder>checkBox_14</zorder>
+     <zorder>checkBox_15</zorder>
+     <zorder>checkBox_21</zorder>
+     <zorder>checkBox_22</zorder>
+     <zorder>checkBox_23</zorder>
+     <zorder>checkBox_24</zorder>
+     <zorder>checkBox_25</zorder>
+     <zorder>checkBox_31</zorder>
+     <zorder>checkBox_32</zorder>
+     <zorder>checkBox_33</zorder>
+     <zorder>checkBox_34</zorder>
+     <zorder>checkBox_35</zorder>
+     <zorder>checkBox_42</zorder>
+     <zorder>checkBox_62</zorder>
+     <zorder>checkBox_65</zorder>
+     <zorder>checkBox_45</zorder>
+     <zorder>checkBox_64</zorder>
+     <zorder>checkBox_54</zorder>
+     <zorder>checkBox_51</zorder>
+     <zorder>checkBox_55</zorder>
+     <zorder>checkBox_53</zorder>
+     <zorder>checkBox_63</zorder>
+     <zorder>checkBox_44</zorder>
+     <zorder>checkBox_41</zorder>
+     <zorder>checkBox_43</zorder>
+     <zorder>checkBox_61</zorder>
+     <zorder>checkBox_52</zorder>
+     <zorder>list_q_d_pq</zorder>
+     <zorder>checkBox_84</zorder>
+     <zorder>checkBox_85</zorder>
+     <zorder>checkBox_94</zorder>
+     <zorder>checkBox_72</zorder>
+     <zorder>checkBox_74</zorder>
+     <zorder>checkBox_75</zorder>
+     <zorder>checkBox_91</zorder>
+     <zorder>checkBox_73</zorder>
+     <zorder>checkBox_81</zorder>
+     <zorder>checkBox_93</zorder>
+     <zorder>checkBox_82</zorder>
+     <zorder>checkBox_92</zorder>
+     <zorder>checkBox_95</zorder>
+     <zorder>checkBox_71</zorder>
+     <zorder>checkBox_83</zorder>
+     <zorder>list_q_d_gran</zorder>
+     <zorder>checkBox_104</zorder>
+     <zorder>checkBox_101</zorder>
+     <zorder>checkBox_102</zorder>
+     <zorder>checkBox_105</zorder>
+     <zorder>checkBox_103</zorder>
+     <zorder>list_q_d_luxo</zorder>
     </widget>
     <widget class="QWidget" name="tab_checkin">
      <attribute name="title">
@@ -3385,6 +5124,175 @@ border-radius:5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QColumnView" name="columnView_3">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>70</y>
+        <width>681</width>
+        <height>251</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_85">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>50</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Dados do Cliente</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_checkin_name">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>110</y>
+        <width>271</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>90</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nome</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_23">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>90</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Sobrenome</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_checkin_lastname">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>110</y>
+        <width>271</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_25">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>140</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CPF</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_checkin_cpf_2">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>160</y>
+        <width>271</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="Line" name="line_11">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>190</y>
+        <width>681</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_checkin_email">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>230</y>
+        <width>271</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_checkin_contact">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>280</y>
+        <width>271</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_32">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>210</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>E-mail</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_90">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>260</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Contato</string>
+      </property>
      </widget>
      <zorder>columnView_2</zorder>
      <zorder>label_39</zorder>
@@ -3408,6 +5316,19 @@ border-radius:5px</string>
      <zorder>label_83</zorder>
      <zorder>label_84</zorder>
      <zorder>line_checkin_room_2</zorder>
+     <zorder>columnView_3</zorder>
+     <zorder>label_85</zorder>
+     <zorder>line_checkin_name</zorder>
+     <zorder>label_11</zorder>
+     <zorder>label_23</zorder>
+     <zorder>line_checkin_lastname</zorder>
+     <zorder>label_25</zorder>
+     <zorder>line_checkin_cpf_2</zorder>
+     <zorder>line_11</zorder>
+     <zorder>line_checkin_email</zorder>
+     <zorder>line_checkin_contact</zorder>
+     <zorder>label_32</zorder>
+     <zorder>label_90</zorder>
     </widget>
     <widget class="QWidget" name="tab_checkout">
      <attribute name="title">
