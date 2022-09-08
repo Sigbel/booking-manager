@@ -75,25 +75,15 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.date_birth.setDate(self.dt)
 
         # Verificar reservas sem checkin na data de entrada
-        self.conn = conectar()
-        self.curs_or = self.conn.cursor()
-
-        self.dt_temp = datetime.now().strftime("%Y-%m-%d")
-
-        self.curs_or.execute(f"""UPDATE reservas AS r INNER JOIN quartos AS q
-	                                SET r.perm_inativo = "1"
-	                                WHERE r.id_quarto = q.id AND r.ativa = 0 AND q.data_entrada < '{self.dt_temp}'""")
-
-        self.conn.commit()
-        desconectar(self.conn)
+        self.verifify_perm_inactive()
 
         # Botões Gerais 
         self.btn_home.clicked.connect(lambda: self.seleciona_tab(0, 0))
         self.btn_cliente.clicked.connect(lambda: self.seleciona_tab(1, 0))
         self.btn_reservas.clicked.connect(lambda: self.seleciona_tab(2, 0))
         self.btn_cadastro_h.clicked.connect(lambda: self.seleciona_tab(3, 0))
-        self.btn_quartos.clicked.connect(lambda: self.seleciona_tab(4, 0))
-        self.btn_checkin.clicked.connect(lambda: self.seleciona_tab(5, 0))
+        self.btn_quartos.clicked.connect(lambda: self.seleciona_tab(4, 1))
+        self.btn_checkin.clicked.connect(lambda: self.seleciona_tab(5, 2))
         self.btn_checkout.clicked.connect(lambda: self.seleciona_tab(6, 0))
         self.data_edit.setText(self.dt.strftime('%d/%m/%Y'))
         self.time_edit.setText(self.dt.strftime('%H:%M:%S'))
@@ -222,6 +212,12 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             msg.setIcon(QMessageBox.Information)
             return msg.exec_()
+        elif mode == 16:
+            msg.setWindowTitle('Atenção')
+            msg.setText('Reserva permanentemente inativa.')
+            msg.setInformativeText('Check-in não feito na data de entrada ou check-out já realizado.')
+            msg.setIcon(QMessageBox.Information)
+            msg.exec_()
 
 
     def set_labels(self):
@@ -248,9 +244,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
     def seleciona_tab(self, value: int, mode: int):
         self.tabWidget.setCurrentIndex(value)
         if mode == 0:
-            pass
+            return
         elif mode == 1:
-            pass
+            self.set_checkboxes()
+        elif mode == 2:
+            self.verifify_perm_inactive()
             
     def table_click(self):
         self.conn = conectar()
@@ -325,6 +323,17 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             for i in dados:
                 i.clear()
 
+    def verifify_perm_inactive(self):
+        self.conn = conectar()
+        self.curs_or = self.conn.cursor()
+
+        self.curs_or.execute(f"""UPDATE reservas AS r INNER JOIN quartos AS q
+	                                SET r.perm_inativo = "1", q.ignorado = "1"
+	                                WHERE r.id_quarto = q.id AND r.ativa = 0 AND q.data_entrada < '{self.dt.strftime("%Y-%m-%d")}' AND perm_inativo = 0""")
+
+        self.conn.commit()
+        desconectar(self.conn)
+
     def set_adress(self, dados):
         self.line_adress.setText(dados["logradouro"])
         self.line_district.setText(dados["bairro"])
@@ -383,7 +392,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
                         consulta = f"""SELECT r.id, r.qtde_pessoas, r.obs, q.quarto, q.tipo_quarto, c.cpf, c.nome, c.sobrenome, c.email, c.contato
                                             FROM reservas AS r, quartos AS q, clientes AS c
-                                            WHERE r.id_quarto=q.id AND r.id_cliente=c.id AND c.cpf={self.line_checkin_cpf.text()}"""
+                                            WHERE r.id_quarto=q.id AND r.id_cliente=c.id AND c.cpf={self.line_checkin_cpf.text()} AND r.perm_inativo=0"""
                         self.curs_or.execute(consulta)
                         dados = self.curs_or.fetchall()
 
@@ -436,9 +445,14 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                     if consulta == 0:
                         consulta = f"""SELECT r.id, r.qtde_pessoas, r.obs, q.quarto, q.tipo_quarto, c.cpf, c.nome, c.sobrenome, c.email, c.contato
                                             FROM reservas AS r, quartos AS q, clientes AS c
-                                            WHERE r.id_quarto=q.id AND r.id_cliente=c.id AND r.id={self.line_checkin_number.text()}"""
+                                            WHERE r.id_quarto=q.id AND r.id_cliente=c.id AND r.id={self.line_checkin_number.text()} AND r.perm_inativo=0"""
                         self.curs_or.execute(consulta)
                         dados = self.curs_or.fetchall()
+
+                        # # Verificação de reserva permanentemente inativa
+                        # if dados[0][10] == 1:
+                        #     self.show_popup(15)
+                        #     return
 
                         if len(dados) == 0:
                             self.show_popup(2)
@@ -533,6 +547,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                                     WHERE id={self.line_checkin_number.text()}""")
 
         self.show_popup(13)
+        self.btn_checkin_2.setEnabled(0)
 
         self.conn.commit()
         desconectar(self.conn)
@@ -566,7 +581,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         auxiliar = False
         for i in contador: 
-            self.curs_or.execute(f"SELECT quarto, data_entrada, data_saida FROM quartos WHERE tipo_quarto='{tipo_quarto}' and quarto={i}")
+            self.curs_or.execute(f"SELECT quarto, data_entrada, data_saida FROM quartos WHERE tipo_quarto='{tipo_quarto}' and quarto={i} AND ignorado=0")
             consulta = self.curs_or.fetchall()
 
             valida = False
@@ -648,8 +663,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             return
 
             # Se o cliente já tem reserva em seu nome
-        consulta = self.curs_or.execute(f"SELECT * FROM reservas WHERE id_cliente='{id_data[0][0]} AND perm_inativo=0'")
-        if consulta > 0:
+        consulta = self.curs_or.execute(f"SELECT * FROM reservas WHERE id_cliente='{id_data[0][0]}' AND perm_inativo=0")
+        if consulta != 0:
             self.show_popup(8)
             return
 
