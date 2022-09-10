@@ -630,7 +630,7 @@ border-radius:5px</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>6</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -2752,8 +2752,8 @@ border-radius:5px</string>
      <widget class="QLabel" name="label_91">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>70</y>
+        <x>37</x>
+        <y>65</y>
         <width>231</width>
         <height>16</height>
        </rect>
@@ -5433,7 +5433,7 @@ border-radius:5px</string>
        <string>Alocação</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_6">
+     <widget class="QPushButton" name="btn_checkout_2">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -5488,7 +5488,7 @@ border-radius:5px</string>
        <string>Tipo de Quarto</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_37">
+     <widget class="QLineEdit" name="line_checkout_roomtype">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -5514,7 +5514,7 @@ border-radius:5px</string>
        <string>OBS</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_39">
+     <widget class="QLineEdit" name="line_checkout_obs">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -5625,7 +5625,7 @@ border-radius:5px</string>
        <string>Contato</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="line_checkin_cpf_3">
+     <widget class="QLineEdit" name="line_checkout_cpf_2">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -5651,7 +5651,7 @@ border-radius:5px</string>
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QLineEdit" name="line_checkin_contact_2">
+     <widget class="QLineEdit" name="line_checkout_contact">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -5664,7 +5664,7 @@ border-radius:5px</string>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="line_checkin_name_2">
+     <widget class="QLineEdit" name="line_checkout_name">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -5677,7 +5677,7 @@ border-radius:5px</string>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="line_checkin_email_2">
+     <widget class="QLineEdit" name="line_checkout_email">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -5729,7 +5729,7 @@ border-radius:5px</string>
        <string>CPF</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="line_checkin_lastname_2">
+     <widget class="QLineEdit" name="line_checkout_lastname">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -5768,7 +5768,7 @@ border-radius:5px</string>
        <string>Dados de Checkin</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="line_checkout_room_2">
+     <widget class="QLineEdit" name="line_checkout_checkin_id">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -5781,7 +5781,7 @@ border-radius:5px</string>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="line_checkout_room_3">
+     <widget class="QLineEdit" name="line_checkout_checkin_date">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -5828,13 +5828,13 @@ border-radius:5px</string>
      <zorder>label_47</zorder>
      <zorder>line_checkout_number</zorder>
      <zorder>label_48</zorder>
-     <zorder>pushButton_6</zorder>
+     <zorder>btn_checkout_2</zorder>
      <zorder>label_49</zorder>
      <zorder>line_checkout_room</zorder>
      <zorder>label_50</zorder>
-     <zorder>lineEdit_37</zorder>
+     <zorder>line_checkout_roomtype</zorder>
      <zorder>label_52</zorder>
-     <zorder>lineEdit_39</zorder>
+     <zorder>line_checkout_obs</zorder>
      <zorder>label_71</zorder>
      <zorder>btn_visu_reserv_2</zorder>
      <zorder>line_12</zorder>
@@ -5842,19 +5842,19 @@ border-radius:5px</string>
      <zorder>columnView_4</zorder>
      <zorder>label_81</zorder>
      <zorder>label_93</zorder>
-     <zorder>line_checkin_cpf_3</zorder>
+     <zorder>line_checkout_cpf_2</zorder>
      <zorder>line_13</zorder>
-     <zorder>line_checkin_contact_2</zorder>
-     <zorder>line_checkin_name_2</zorder>
-     <zorder>line_checkin_email_2</zorder>
+     <zorder>line_checkout_contact</zorder>
+     <zorder>line_checkout_name</zorder>
+     <zorder>line_checkout_email</zorder>
      <zorder>label_94</zorder>
      <zorder>label_95</zorder>
      <zorder>label_96</zorder>
-     <zorder>line_checkin_lastname_2</zorder>
+     <zorder>line_checkout_lastname</zorder>
      <zorder>line_14</zorder>
      <zorder>label_97</zorder>
-     <zorder>line_checkout_room_2</zorder>
-     <zorder>line_checkout_room_3</zorder>
+     <zorder>line_checkout_checkin_id</zorder>
+     <zorder>line_checkout_checkin_date</zorder>
      <zorder>label_98</zorder>
      <zorder>label_99</zorder>
     </widget>

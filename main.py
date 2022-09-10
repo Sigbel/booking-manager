@@ -106,6 +106,10 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.btn_visu_reserv.clicked.connect(lambda: self.verifica_banco_r(2))
         self.btn_checkin_2.clicked.connect(self.insert_checkin)
 
+        # Botões (CheckOut)
+        self.btn_visu_reserv_2.clicked.connect(lambda: self.verifica_banco_r(4))
+        self.btn_checkout_2.clicked.connect(self.insert_checkout)
+
         # Extras (Alterações em QLines e outros Widgets)
         self.line_checkin_cpf.textChanged.connect(lambda: self.change_button(1))
         self.line_checkin_number.textChanged.connect(lambda: self.change_button(1))
@@ -218,7 +222,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             msg.setInformativeText('Check-in não feito na data de entrada ou check-out já realizado.')
             msg.setIcon(QMessageBox.Information)
             msg.exec_()
-
+        elif mode == 17:
+            msg.setWindowTitle('Atenção')
+            msg.setText('Check-out realizado com sucesso!')
+            msg.setIcon(QMessageBox.Information)
+            msg.exec_()
 
     def set_labels(self):
         labels = [self.test_cpf, self.test_contato, self.test_cep]
@@ -382,7 +390,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             else: pass
 
         elif mode == 2:
-            # try:
+            try:
                 if self.line_checkin_cpf.text() != '':
                     consulta = self.curs_or.execute(f"""SELECT ch.id, r.id, r.ativa, c.cpf
 	                                            FROM reservas AS r, checkins AS ch , clientes AS c
@@ -449,11 +457,6 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         self.curs_or.execute(consulta)
                         dados = self.curs_or.fetchall()
 
-                        # # Verificação de reserva permanentemente inativa
-                        # if dados[0][10] == 1:
-                        #     self.show_popup(15)
-                        #     return
-
                         if len(dados) == 0:
                             self.show_popup(2)
                             return
@@ -497,13 +500,13 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                     self.show_popup(2)
                     return
             
-            # except:
-            #     self.show_popup(2)
+            except:
+                self.show_popup(2)
             
-            #     campos = [self.line_checkin_room, self.line_checkin_room_2, self.line_checkin_roomtype, self.line_checkin_status,
-            #     self.line_checkin_number, self.line_checkin_cpf]
-            #     for c1 in campos:
-            #         c1.clear() 
+                campos = [self.line_checkin_room, self.line_checkin_room_2, self.line_checkin_roomtype, self.line_checkin_status,
+                self.line_checkin_number, self.line_checkin_cpf]
+                for c1 in campos:
+                    c1.clear() 
             
         elif mode == 3:
             if self.line_proc_client.text() != '':
@@ -525,7 +528,10 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 for c in range(0, len(dados)):
                     for c1 in range(0,3):
                         self.table_clients.setItem(c, c1, QTableWidgetItem(str(dados[c][c1])))
-            else: pass   
+            else: pass  
+
+        elif mode == 4:
+            pass
  
         self.conn.commit()
         desconectar(self.conn)
@@ -548,6 +554,28 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         self.show_popup(13)
         self.btn_checkin_2.setEnabled(0)
+
+        self.conn.commit()
+        desconectar(self.conn)
+
+    def insert_checkout(self):
+
+        self.conn = conectar()
+        self.curs_or = self.conn.cursor()
+
+        self.curs_or.execute(f"""INSERT INTO checkouts (
+            id_checkin, data_hora_checkout)
+            VALUES (
+            '{self.line_checkout_checkin_id.text()}',
+            '{datetime.now()}')"""
+            )
+
+        self.curs_or.execute(f"""UPDATE reservas
+                                    SET perm_inativo='1'
+                                    WHERE id={self.line_checkin_number.text()}""")
+
+        self.show_popup(17)
+        self.btn_checkout_2.setEnabled(0)
 
         self.conn.commit()
         desconectar(self.conn)
@@ -640,7 +668,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         for c2 in campos:
             c2.clear()
 
-    def insert_reserva(self): # Bug: PopUp não verifica caixa de spin
+    def insert_reserva(self):
         self.conn = conectar()
         self.curs_or = self.conn.cursor()
 
