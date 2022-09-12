@@ -211,7 +211,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             msg.exec_()
         elif mode == 15:
             msg.setWindowTitle('Atenção')
-            msg.setText('A data de entrada é posterior a data atual.')
+            msg.setText('A data de entrada é anterior a data atual.')
             msg.setInformativeText('Deseja continuar?')
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             msg.setIcon(QMessageBox.Information)
@@ -224,7 +224,19 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             msg.exec_()
         elif mode == 17:
             msg.setWindowTitle('Atenção')
-            msg.setText('Check-out realizado com sucesso!')
+            msg.setText('Checkin realizado com sucesso!')
+            msg.setIcon(QMessageBox.Information)
+            msg.exec_()
+        elif mode == 18:
+            msg.setWindowTitle('Atenção')
+            msg.setText('A data de saída é anterior a estipulada na reserva.')
+            msg.setInformativeText('Deseja continuar?')
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            msg.setIcon(QMessageBox.Information)
+            return msg.exec_()
+        elif mode == 19:
+            msg.setWindowTitle('Atenção')
+            msg.setText('Check-out já feito para essa reserva ou Check-in não realizado.')
             msg.setIcon(QMessageBox.Information)
             msg.exec_()
 
@@ -373,6 +385,12 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.conn.commit()
         desconectar(self.conn)
 
+    def atualiza_banco(self):
+        self.conn = conectar()
+        self.curs_or = self.conn.cursor()
+
+        self.conn.commit()
+
     def verifica_banco_r(self, mode): # Bug: Bloquear programa quando não encontra CPF
         self.conn = conectar()
         self.curs_or = self.conn.cursor()
@@ -398,7 +416,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                     if consulta == 0:
                         self.line_checkin_number.clear()
 
-                        consulta = f"""SELECT r.id, r.qtde_pessoas, r.obs, q.quarto, q.tipo_quarto, c.cpf, c.nome, c.sobrenome, c.email, c.contato
+                        consulta = f"""SELECT r.id, r.qtde_pessoas, r.obs, q.quarto, q.tipo_quarto, c.cpf, c.nome, c.sobrenome, c.email, c.contato, q.data_entrada, q.data_saida
                                             FROM reservas AS r, quartos AS q, clientes AS c
                                             WHERE r.id_quarto=q.id AND r.id_cliente=c.id AND c.cpf={self.line_checkin_cpf.text()} AND r.perm_inativo=0"""
                         self.curs_or.execute(consulta)
@@ -410,6 +428,9 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                             self.show_popup(2)
                             return
                         else:
+                            dados_e_conv = dados[0][10].strftime("%Y-%m-%d")
+                            dados_s_conv = dados[0][11].strftime("%Y-%m-%d")
+
                             self.line_checkin_room.setText("Quarto " + str(dados[0][3]))
                             self.line_checkin_room_2.setText(str(dados[0][1]))
                             self.line_checkin_roomtype.setText(dados[0][4])
@@ -419,6 +440,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                             self.line_checkin_email.setText(dados[0][8])
                             self.line_checkin_contact.setText(dados[0][9])
                             self.line_checkin_cpf_2.setText(dados[0][5])
+                            self.line_checkin_reserva_data_e.set(dados_e_conv)
+                            self.line_checkin_reserva_data_s.set(dados_s_conv)
 
                         
                         # Verificação da data da reserva
@@ -451,7 +474,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 	                                            FROM reservas AS r, checkins AS ch , clientes AS c
                                                 WHERE ch.id_reserva=r.id AND r.ativa=1 AND r.id_cliente=c.id AND r.id='{self.line_checkin_number.text()}'""")
                     if consulta == 0:
-                        consulta = f"""SELECT r.id, r.qtde_pessoas, r.obs, q.quarto, q.tipo_quarto, c.cpf, c.nome, c.sobrenome, c.email, c.contato
+                        consulta = f"""SELECT r.id, r.qtde_pessoas, r.obs, q.quarto, q.tipo_quarto, c.cpf, c.nome, c.sobrenome, c.email, c.contato, q.data_entrada, q.data_saida
                                             FROM reservas AS r, quartos AS q, clientes AS c
                                             WHERE r.id_quarto=q.id AND r.id_cliente=c.id AND r.id={self.line_checkin_number.text()} AND r.perm_inativo=0"""
                         self.curs_or.execute(consulta)
@@ -461,6 +484,9 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                             self.show_popup(2)
                             return
                         else:
+                            dados_e_conv = dados[0][10].strftime("%Y-%m-%d")
+                            dados_s_conv = dados[0][11].strftime("%Y-%m-%d")
+
                             self.line_checkin_room.setText("Quarto " + str(dados[0][3]))
                             self.line_checkin_room_2.setText(str(dados[0][1]))
                             self.line_checkin_roomtype.setText(dados[0][4])
@@ -470,6 +496,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                             self.line_checkin_email.setText(dados[0][8])
                             self.line_checkin_contact.setText(dados[0][9])
                             self.line_checkin_cpf_2.setText(dados[0][5])
+                            self.line_checkin_reserva_data_e.setText(dados_e_conv)
+                            self.line_checkin_reserva_data_s.setText(dados_s_conv)
 
                        
                         # Verificação da data da reserva
@@ -515,10 +543,13 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 sobrenome = ""
 
                 if len(busca.split()) > 1:
-                    nome = busca.split()[0].upper()
-                    sobrenome = busca.split()[1].upper()
+                    nome = busca.split()[0].upper().strip()
+                    sobrenome = busca.split()[1].upper().strip()
+                    consulta = f'SELECT * FROM clientes WHERE id="{busca}" OR cpf="{busca}" OR (nome="{nome}" and sobrenome="{sobrenome}")'
+                else:
+                    nome = busca.upper().strip()
+                    consulta = f'SELECT * FROM clientes WHERE id="{busca}" OR cpf="{busca}" OR nome = "{nome}"'
 
-                consulta = f'SELECT * FROM clientes WHERE id="{busca}" or cpf="{busca}" or (nome="{nome}" and sobrenome="{sobrenome}")'
                 self.curs_or.execute(consulta)
                 dados = self.curs_or.fetchall()
 
@@ -531,7 +562,138 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             else: pass  
 
         elif mode == 4:
-            pass
+            try:
+                if self.line_checkout_cpf.text() != '':
+                    consulta = self.curs_or.execute(f"""SELECT ch.id, r.id, r.ativa, c.cpf
+	                                            FROM reservas AS r, checkins AS ch , clientes AS c
+                                                WHERE ch.id_reserva=r.id AND r.ativa=1 AND r.id_cliente=c.id AND c.cpf='{self.line_checkout_cpf.text()}'""")
+                    if consulta != 0:
+                        self.line_checkout_number.clear()
+
+                        consulta = f"""SELECT r.id, r.obs, q.quarto, q.tipo_quarto, c.cpf, c.nome, c.sobrenome, c.email, c.contato, ch.id, ch.data_hora_checkin, q.data_entrada, q.data_saida, r.qtde_pessoas
+                                            FROM reservas AS r, quartos AS q, clientes AS c
+                                            WHERE r.id_quarto=q.id AND r.id_cliente=c.id AND ch.id_reserva=r.id AND r.perm_inativo=0 AND c.cpf={self.line_checkout_cpf.text()}"""
+
+                        self.curs_or.execute(consulta)
+                        dados = self.curs_or.fetchall()
+
+                        self.line_checkout_number.setText(str(dados[0][0]))
+
+                        if len(dados) == 0:
+                            self.show_popup(2)
+                            return
+                        else:
+                            dados_conversao = dados[0][10].strftime("%Y-%m-%d | %H:%M:%S")
+                            dados_e_conv = dados[0][11].strftime("%Y-%m-%d")
+                            dados_s_conv = dados[0][12].strftime("%Y-%m-%d")
+
+                            self.line_checkout_obs.setText(dados[0][1])
+                            self.line_checkout_room.setText("Quarto " + str(dados[0][2]))
+                            self.line_checkout_roomtype.setText(dados[0][3])
+                            self.line_checkout_cpf_2.setText(dados[0][4])
+                            self.line_checkout_name.setText(dados[0][5])
+                            self.line_checkout_lastname.setText(dados[0][6])
+                            self.line_checkout_email.setText(dados[0][7])
+                            self.line_checkout_contact.setText(dados[0][8])
+                            self.line_checkout_checkin_id.setText(dados[0][9])
+                            self.line_checkout_checkin_date.setText(dados[0][10])
+                            self.line_checkout_reserva_data_e.setText(dados_e_conv)
+                            self.line_checkout_reserva_data_s.setText(dados_s_conv)
+                            self.line_checkout_room_2.setText(str(dados[0][13]))                            
+             
+                        # Verificação da data de saída
+                        consulta = f"""SELECT q.data_saida
+	                                        FROM reservas AS r, quartos AS q, clientes AS c
+                                            WHERE r.id_quarto=q.id AND r.id_cliente=c.id AND c.cpf={self.line_checkout_cpf.text()}"""
+                        self.curs_or.execute(consulta)
+                        dados = self.curs_or.fetchall()
+
+                        dt_init = datetime.now().strftime("%Y-%m-%d")
+                        dt_conv = datetime.strptime(dt_init, "%Y-%m-%d")
+                        dados_init = dados[0][0].strftime("%Y-%m-%d")
+                        dados_conv = datetime.strptime(dados_init, "%Y-%m-%d")
+
+                        if dt_conv < dados_conv:
+                            situation = self.show_popup(18)
+                            if situation == QMessageBox.Ok:
+                                pass
+                            else:
+                                return
+
+                        self.btn_checkout_2.setEnabled(1)
+                    
+                    else:
+                        self.show_popup(19)
+                        return
+
+                elif self.line_checkout_number.text() != '':
+                    consulta = self.curs_or.execute(f"""SELECT ch.id, r.id, r.ativa, c.cpf
+	                                            FROM reservas AS r, checkins AS ch , clientes AS c
+                                                WHERE ch.id_reserva=r.id AND r.ativa=1 AND r.id_cliente=c.id AND r.id='{self.line_checkout_number.text()}'""")
+                    
+                    if consulta != 0:
+                        consulta = f"""SELECT r.id, r.obs, q.quarto, q.tipo_quarto, c.cpf, c.nome, c.sobrenome, c.email, c.contato, ch.id, ch.data_hora_checkin, q.data_entrada, q.data_saida, r.qtde_pessoas
+                                            FROM reservas AS r, quartos AS q, clientes AS c, checkins AS ch
+                                            WHERE r.id_quarto=q.id AND r.id_cliente=c.id AND ch.id_reserva=r.id AND r.perm_inativo=0 AND r.id={self.line_checkout_number.text()}"""
+                        self.curs_or.execute(consulta)
+                        dados = self.curs_or.fetchall()
+
+                        if len(dados) == 0:
+                            self.show_popup(2)
+                            return
+                        else:
+                            dados_conversao = dados[0][10].strftime("%Y-%m-%d | %H:%M:%S")
+                            dados_e_conv = dados[0][11].strftime("%Y-%m-%d")
+                            dados_s_conv = dados[0][12].strftime("%Y-%m-%d")
+
+                            self.line_checkout_obs.setText(dados[0][1])
+                            self.line_checkout_room.setText("Quarto " + str(dados[0][2]))
+                            self.line_checkout_roomtype.setText(dados[0][3])
+                            self.line_checkout_cpf_2.setText(dados[0][4])
+                            self.line_checkout_name.setText(dados[0][5])
+                            self.line_checkout_lastname.setText(dados[0][6])
+                            self.line_checkout_email.setText(dados[0][7])
+                            self.line_checkout_contact.setText(dados[0][8])
+                            self.line_checkout_checkin_id.setText(str(dados[0][9]))
+                            self.line_checkout_checkin_date.setText(dados_conversao)
+                            self.line_checkout_reserva_data_e.setText(dados_e_conv)
+                            self.line_checkout_reserva_data_s.setText(dados_s_conv)
+                            self.line_checkout_room_2.setText(str(dados[0][13]))
+                       
+                        # Verificação da data de saída
+                        consulta = f"""SELECT q.data_saida
+	                                        FROM reservas AS r, quartos AS q
+                                            WHERE r.id_quarto=q.id AND r.id='{self.line_checkout_number.text()}'"""
+                        self.curs_or.execute(consulta)
+                        dados = self.curs_or.fetchall()
+
+                        dt_init = datetime.now().strftime("%Y-%m-%d")
+                        dt_conv = datetime.strptime(dt_init, "%Y-%m-%d")
+                        dados_init = dados[0][0].strftime("%Y-%m-%d")
+                        dados_conv = datetime.strptime(dados_init, "%Y-%m-%d")
+
+                        if dt_conv < dados_conv:
+                            situation = self.show_popup(18)
+                            if situation == QMessageBox.Ok:
+                                pass
+                            else:
+                                return
+
+                        self.btn_checkout_2.setEnabled(1)
+                    
+                    else:
+                        self.show_popup(19)
+                        return
+                else: 
+                    self.show_popup(2)
+                    return
+            except:
+                self.show_popup(2)
+            
+                campos = [self.line_checkin_room, self.line_checkin_room_2, self.line_checkin_roomtype, self.line_checkin_status,
+                self.line_checkin_number, self.line_checkin_cpf]
+                for c1 in campos:
+                    c1.clear() 
  
         self.conn.commit()
         desconectar(self.conn)
@@ -571,15 +733,14 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             )
 
         self.curs_or.execute(f"""UPDATE reservas
-                                    SET perm_inativo='1'
-                                    WHERE id={self.line_checkin_number.text()}""")
+                                    SET perm_inativo='1', ativa='0'
+                                    WHERE id='{self.line_checkout_number.text()}'""")
 
         self.show_popup(17)
         self.btn_checkout_2.setEnabled(0)
 
         self.conn.commit()
         desconectar(self.conn)
-
 
     def insert_quartos(self, start, end, tipo_quarto):
         """Função para verificar disponibilidade de datas em cada quarto no banco de dados
