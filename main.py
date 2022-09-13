@@ -42,7 +42,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         'contato VARCHAR(50) NOT NULL,'
                         'complemento VARCHAR(100) NOT NULL'
                         ')')
-        self.curs_or.execute('CREATE TABLE IF NOT EXISTS reservas (' 
+        self.curs_or.execute('CREATE TABLE IF NOT EXISTS reservas ('
                         'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
                         'qtde_pessoas INT NOT NULL,'
                         'data_entrada INT NOT NULL,'
@@ -85,8 +85,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.btn_quartos.clicked.connect(lambda: self.seleciona_tab(4, 1))
         self.btn_checkin.clicked.connect(lambda: self.seleciona_tab(5, 2))
         self.btn_checkout.clicked.connect(lambda: self.seleciona_tab(6, 0))
-        self.data_edit.setText(self.dt.strftime('%d/%m/%Y'))
-        self.time_edit.setText(self.dt.strftime('%H:%M:%S'))
+        # self.data_edit.setText(self.dt.strftime('%d/%m/%Y'))
+        # self.time_edit.setText(self.dt.strftime('%H:%M:%S'))
 
         self.btn_refresh_tab1.clicked.connect(lambda: self.temp_atualiza_banco())
         self.btn_pesq_client.clicked.connect(lambda: self.verifica_banco_r(3))
@@ -113,17 +113,21 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         # Extras (Alterações em QLines e outros Widgets)
         self.line_checkin_cpf.textChanged.connect(lambda: self.change_button(1))
         self.line_checkin_number.textChanged.connect(lambda: self.change_button(1))
+        self.line_checkout_number.textChanged.connect(lambda: self.change_active())
+        self.line_checkout_cpf.textChanged.connect(lambda: self.change_active())
         self.list_q_d_pq.itemClicked.connect(lambda: self.label_room_click(1))
         self.list_q_d_med.itemClicked.connect(lambda: self.label_room_click(2))
         self.list_q_d_gran.itemClicked.connect(lambda: self.label_room_click(3))
         self.list_q_d_luxo.itemClicked.connect(lambda: self.label_room_click(4))
 
-
+        # Gravação temporária do status da reserva
+        self.temp_reserve_status = False
+        self.diarias = 0
 
     def go_login(self):
         login.iniciar()
 
-    def keyPressEvent(self, event): # Corrigir Bug: - Enter quando apertado sem preencher trás o primeiro nome do banco
+    def keyPressEvent(self, event):
         if (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.tabWidget.currentIndex() == 2:
             self.verifica_banco_r(1)
         elif (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.tabWidget.currentIndex() == 5:
@@ -201,7 +205,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             msg.exec_()
         elif mode == 13:
             msg.setWindowTitle('Atenção')
-            msg.setText('Checkin realizado com sucesso!')
+            msg.setText('Check-in realizado com sucesso!')
             msg.setIcon(QMessageBox.Information)
             msg.exec_()
         elif mode == 14:
@@ -224,7 +228,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             msg.exec_()
         elif mode == 17:
             msg.setWindowTitle('Atenção')
-            msg.setText('Checkin realizado com sucesso!')
+            msg.setText('Check-out realizado com sucesso!')
             msg.setIcon(QMessageBox.Information)
             msg.exec_()
         elif mode == 18:
@@ -251,7 +255,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         consulta = f"""SELECT q.quarto 
 	                        FROM reservas AS r, quartos AS q, checkins AS ch
-                            WHERE r.id_quarto = q.id and ch.id_reserva = r.id"""
+                            WHERE r.id_quarto = q.id and ch.id_reserva = r.id AND r.ativa='1'"""
         self.curs_or.execute(consulta)
         dados = self.curs_or.fetchall()
 
@@ -343,6 +347,16 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             for i in dados:
                 i.clear()
 
+    def change_active(self):
+        self.temp_reserve_status = False
+
+        dados = [self.line_checkout_name, self.line_checkout_lastname, self.line_checkout_cpf_2, self.line_checkout_email,
+        self.line_checkout_contact, self.line_checkout_room, self.line_checkout_room_2, self.line_checkout_roomtype,
+        self.line_checkout_reserva_data_e, self.line_checkout_reserva_data_s, self.line_checkout_checkin_id,
+        self.line_checkout_checkin_date]
+        for i in dados:
+            i.clear()
+
     def verifify_perm_inactive(self):
         self.conn = conectar()
         self.curs_or = self.conn.cursor()
@@ -391,9 +405,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         self.conn.commit()
 
-    def verifica_banco_r(self, mode): # Bug: Bloquear programa quando não encontra CPF
+    def verifica_banco_r(self, mode):
         self.conn = conectar()
         self.curs_or = self.conn.cursor()
+
+        self.temp_reserve_status = False
 
         if mode == 1:
             if self.line_r_cpf.text() != '':
@@ -571,7 +587,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         self.line_checkout_number.clear()
 
                         consulta = f"""SELECT r.id, r.obs, q.quarto, q.tipo_quarto, c.cpf, c.nome, c.sobrenome, c.email, c.contato, ch.id, ch.data_hora_checkin, q.data_entrada, q.data_saida, r.qtde_pessoas
-                                            FROM reservas AS r, quartos AS q, clientes AS c
+                                            FROM reservas AS r, quartos AS q, clientes AS c, checkins AS ch
                                             WHERE r.id_quarto=q.id AND r.id_cliente=c.id AND ch.id_reserva=r.id AND r.perm_inativo=0 AND c.cpf={self.line_checkout_cpf.text()}"""
 
                         self.curs_or.execute(consulta)
@@ -595,8 +611,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                             self.line_checkout_lastname.setText(dados[0][6])
                             self.line_checkout_email.setText(dados[0][7])
                             self.line_checkout_contact.setText(dados[0][8])
-                            self.line_checkout_checkin_id.setText(dados[0][9])
-                            self.line_checkout_checkin_date.setText(dados[0][10])
+                            self.line_checkout_checkin_id.setText(str(dados[0][9]))
+                            self.line_checkout_checkin_date.setText(dados_conversao)
                             self.line_checkout_reserva_data_e.setText(dados_e_conv)
                             self.line_checkout_reserva_data_s.setText(dados_s_conv)
                             self.line_checkout_room_2.setText(str(dados[0][13]))                            
@@ -616,7 +632,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         if dt_conv < dados_conv:
                             situation = self.show_popup(18)
                             if situation == QMessageBox.Ok:
-                                pass
+                                self.temp_reserve_status = True
                             else:
                                 return
 
@@ -642,6 +658,12 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                             self.show_popup(2)
                             return
                         else:
+                            date_checkin1 = dados[0][10].strftime("%Y-%m-%d")
+                            date_checkin2 = datetime.strptime(date_checkin1, "%Y-%m-%d")  
+                            dt_init = datetime.now().strftime("%Y-%m-%d")
+                            dt_conv = datetime.strptime(dt_init, "%Y-%m-%d")
+                            self.diarias = len(date_range(date_checkin1, dt_conv))
+
                             dados_conversao = dados[0][10].strftime("%Y-%m-%d | %H:%M:%S")
                             dados_e_conv = dados[0][11].strftime("%Y-%m-%d")
                             dados_s_conv = dados[0][12].strftime("%Y-%m-%d")
@@ -659,6 +681,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                             self.line_checkout_reserva_data_e.setText(dados_e_conv)
                             self.line_checkout_reserva_data_s.setText(dados_s_conv)
                             self.line_checkout_room_2.setText(str(dados[0][13]))
+                            self.line_checkout_dnumber.setText(str(self.diarias))
                        
                         # Verificação da data de saída
                         consulta = f"""SELECT q.data_saida
@@ -675,7 +698,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         if dt_conv < dados_conv:
                             situation = self.show_popup(18)
                             if situation == QMessageBox.Ok:
-                                pass
+                                self.temp_reserve_status = True
                             else:
                                 return
 
@@ -726,15 +749,20 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.curs_or = self.conn.cursor()
 
         self.curs_or.execute(f"""INSERT INTO checkouts (
-            id_checkin, data_hora_checkout)
+            id_checkin, data_hora_checkout, diarias_cumpridas)
             VALUES (
             '{self.line_checkout_checkin_id.text()}',
-            '{datetime.now()}')"""
+            '{datetime.now()}',
+            '{self.diarias}')"""
             )
-
-        self.curs_or.execute(f"""UPDATE reservas
-                                    SET perm_inativo='1', ativa='0'
-                                    WHERE id='{self.line_checkout_number.text()}'""")
+        if self.temp_reserve_status == True:
+            self.curs_or.execute(f"""UPDATE reservas AS r INNER JOIN quartos AS q
+	                                    SET q.ignorado = "1", r.perm_inativo = "1", ativa = "0"
+	                                    WHERE r.id_quarto = q.id AND r.id = {self.line_checkout_number.text()}""")
+        else:
+            self.curs_or.execute(f"""UPDATE reservas
+                                        SET perm_inativo='1', ativa='0'
+                                        WHERE id='{self.line_checkout_number.text()}'""")
 
         self.show_popup(17)
         self.btn_checkout_2.setEnabled(0)
