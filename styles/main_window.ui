@@ -188,12 +188,12 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLineEdit" name="line_s_client_reserve">
+   <widget class="QLineEdit" name="line_s_client">
     <property name="geometry">
      <rect>
       <x>190</x>
       <y>10</y>
-      <width>191</width>
+      <width>131</width>
       <height>21</height>
      </rect>
     </property>
@@ -224,7 +224,7 @@ border-radius:5px</string>
      <enum>QLineEdit::Normal</enum>
     </property>
     <property name="placeholderText">
-     <string>Busque por Hóspede ou Reserva</string>
+     <string>Buscar por Hóspede</string>
     </property>
     <property name="cursorMoveStyle">
      <enum>Qt::VisualMoveStyle</enum>
@@ -268,7 +268,7 @@ border-radius:5px</string>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>660</x>
       <y>10</y>
       <width>21</width>
       <height>21</height>
@@ -331,7 +331,7 @@ border-radius:5px</string>
      <enum>Qt::LeftToRight</enum>
     </property>
     <property name="text">
-     <string>🤵   Clientes</string>
+     <string>🤵  Visualizar Clientes</string>
     </property>
     <property name="autoExclusive">
      <bool>false</bool>
@@ -356,7 +356,7 @@ border-radius:5px</string>
      </font>
     </property>
     <property name="text">
-     <string>🎫  Reservas</string>
+     <string>🎫  Criar Reserva</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_cadastro_h">
@@ -388,7 +388,7 @@ border-radius:5px</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>235</y>
+      <y>204</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -410,7 +410,7 @@ border-radius:5px</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>204</y>
+      <y>235</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -453,7 +453,7 @@ border-radius:5px</string>
    <widget class="QLabel" name="cont_livre">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>550</x>
       <y>10</y>
       <width>31</width>
       <height>21</height>
@@ -474,7 +474,7 @@ border-radius:5px</string>
    <widget class="QLabel" name="cont_ocup">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>620</x>
       <y>10</y>
       <width>31</width>
       <height>21</height>
@@ -495,7 +495,7 @@ border-radius:5px</string>
    <widget class="QLabel" name="cont_fila_res">
     <property name="geometry">
      <rect>
-      <x>580</x>
+      <x>690</x>
       <y>10</y>
       <width>31</width>
       <height>21</height>
@@ -516,7 +516,7 @@ border-radius:5px</string>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>520</x>
       <y>10</y>
       <width>21</width>
       <height>21</height>
@@ -535,7 +535,7 @@ border-radius:5px</string>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>590</x>
       <y>10</y>
       <width>21</width>
       <height>20</height>
@@ -631,7 +631,7 @@ border-radius:5px</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>8</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -705,7 +705,7 @@ border-radius:5px</string>
        </rect>
       </property>
       <property name="text">
-       <string>PushButton</string>
+       <string>🔎</string>
       </property>
      </widget>
      <widget class="QTableWidget" name="table_clients">
@@ -1159,7 +1159,7 @@ border-radius:5px</string>
        </rect>
       </property>
       <property name="text">
-       <string>PushButton</string>
+       <string>🔃</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_88">
@@ -6283,7 +6283,7 @@ border-radius:5px</string>
        </rect>
       </property>
       <property name="text">
-       <string>PushButton</string>
+       <string>🔎</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="line_proc_reserve">
@@ -6302,14 +6302,14 @@ border-radius:5px</string>
      <widget class="QPushButton" name="btn_refresh_tab7">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>269</x>
         <y>70</y>
-        <width>20</width>
+        <width>21</width>
         <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>PushButton</string>
+       <string>🔃</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_109">
@@ -6791,13 +6791,13 @@ border-radius:5px</string>
        <string>Visualizar Checks</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="table_reserves_2">
+     <widget class="QTableWidget" name="table_checkin">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>110</y>
-        <width>401</width>
-        <height>461</height>
+        <x>20</x>
+        <y>97</y>
+        <width>301</width>
+        <height>491</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -6872,22 +6872,484 @@ border-radius:5px</string>
       </column>
       <column>
        <property name="text">
-        <string>Nome</string>
+        <string>C-in (Data)</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QTableWidget" name="table_reserves_2">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>97</y>
+        <width>301</width>
+        <height>211</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+      <property name="autoScroll">
+       <bool>false</bool>
+      </property>
+      <property name="autoScrollMargin">
+       <number>16</number>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="tabKeyNavigation">
+       <bool>false</bool>
+      </property>
+      <property name="showGrid">
+       <bool>true</bool>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>100</number>
+      </attribute>
+      <attribute name="horizontalHeaderHighlightSections">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderHighlightSections">
+       <bool>true</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Nº Reserva</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Data Checkin</string>
+        <string>Data de Entrada</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>Data de Saída</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QLabel" name="label_126">
+      <property name="geometry">
+       <rect>
+        <x>26</x>
+        <y>50</y>
+        <width>111</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Checkins</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_127">
+      <property name="geometry">
+       <rect>
+        <x>336</x>
+        <y>49</y>
+        <width>221</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Reservas com data de saída para hoje</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="table_checkout">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>97</y>
+        <width>301</width>
+        <height>491</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+      <property name="autoScroll">
+       <bool>false</bool>
+      </property>
+      <property name="autoScrollMargin">
+       <number>16</number>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="tabKeyNavigation">
+       <bool>false</bool>
+      </property>
+      <property name="showGrid">
+       <bool>true</bool>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>75</number>
+      </attribute>
+      <attribute name="horizontalHeaderHighlightSections">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderHighlightSections">
+       <bool>true</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>ID Checkout</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>ID Checkin</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Nº Diárias</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>C-out (Data)</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QLabel" name="label_128">
+      <property name="geometry">
+       <rect>
+        <x>646</x>
+        <y>50</y>
+        <width>111</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Checkouts</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_22">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>57</y>
+        <width>301</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_23">
+      <property name="geometry">
+       <rect>
+        <x>311</x>
+        <y>47</y>
+        <width>20</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_24">
+      <property name="geometry">
+       <rect>
+        <x>11</x>
+        <y>47</y>
+        <width>20</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_25">
+      <property name="geometry">
+       <rect>
+        <x>321</x>
+        <y>47</y>
+        <width>20</width>
+        <height>331</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_26">
+      <property name="geometry">
+       <rect>
+        <x>331</x>
+        <y>57</y>
+        <width>301</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_27">
+      <property name="geometry">
+       <rect>
+        <x>621</x>
+        <y>47</y>
+        <width>20</width>
+        <height>331</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_28">
+      <property name="geometry">
+       <rect>
+        <x>631</x>
+        <y>47</y>
+        <width>20</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_29">
+      <property name="geometry">
+       <rect>
+        <x>931</x>
+        <y>47</y>
+        <width>20</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_30">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>58</y>
+        <width>301</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_proc_checkin">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>70</y>
+        <width>251</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Procurar Checkin</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_pesq_checkin">
+      <property name="geometry">
+       <rect>
+        <x>285</x>
+        <y>70</y>
+        <width>31</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>🔎</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_pesq_checkout">
+      <property name="geometry">
+       <rect>
+        <x>905</x>
+        <y>70</y>
+        <width>31</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>🔎</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_proc_checkout">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>70</y>
+        <width>251</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Procurar Checkout</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_pesq_reserve_2">
+      <property name="geometry">
+       <rect>
+        <x>595</x>
+        <y>70</y>
+        <width>31</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>🔎</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_proc_reserve_2">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>70</y>
+        <width>251</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Procurar Reserva</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_refresh_tab8">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>10</y>
+        <width>81</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>🔃 Atualizar</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_proc_reserve_3">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>340</y>
+        <width>251</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Procurar Reserva</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_130">
+      <property name="geometry">
+       <rect>
+        <x>336</x>
+        <y>317</y>
+        <width>241</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Reservas com data de entrada para hoje</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_31">
+      <property name="geometry">
+       <rect>
+        <x>331</x>
+        <y>327</y>
+        <width>301</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
      </widget>
      <widget class="QTableWidget" name="table_reserves_3">
       <property name="geometry">
        <rect>
-        <x>490</x>
-        <y>110</y>
-        <width>401</width>
-        <height>461</height>
+        <x>330</x>
+        <y>367</y>
+        <width>301</width>
+        <height>221</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -6943,34 +7405,62 @@ border-radius:5px</string>
       </attribute>
       <column>
        <property name="text">
-        <string>ID Checkin</string>
-       </property>
-       <property name="foreground">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>0</green>
-          <blue>0</blue>
-         </color>
-        </brush>
-       </property>
-      </column>
-      <column>
-       <property name="text">
         <string>Nº Reserva</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Henrique</string>
+        <string>Data de Entrada</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Data Checkin</string>
+        <string>Data de Saída</string>
        </property>
       </column>
      </widget>
+     <widget class="QPushButton" name="btn_pesq_reserve_3">
+      <property name="geometry">
+       <rect>
+        <x>595</x>
+        <y>340</y>
+        <width>31</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>🔎</string>
+      </property>
+     </widget>
+     <zorder>line_17</zorder>
+     <zorder>label_108</zorder>
+     <zorder>table_checkin</zorder>
+     <zorder>table_reserves_2</zorder>
+     <zorder>label_126</zorder>
+     <zorder>label_127</zorder>
+     <zorder>table_checkout</zorder>
+     <zorder>label_128</zorder>
+     <zorder>line_22</zorder>
+     <zorder>line_23</zorder>
+     <zorder>line_24</zorder>
+     <zorder>line_25</zorder>
+     <zorder>line_26</zorder>
+     <zorder>line_27</zorder>
+     <zorder>line_29</zorder>
+     <zorder>line_30</zorder>
+     <zorder>line_28</zorder>
+     <zorder>line_proc_checkin</zorder>
+     <zorder>btn_pesq_checkin</zorder>
+     <zorder>btn_pesq_checkout</zorder>
+     <zorder>line_proc_checkout</zorder>
+     <zorder>btn_pesq_reserve_2</zorder>
+     <zorder>line_proc_reserve_2</zorder>
+     <zorder>btn_refresh_tab8</zorder>
+     <zorder>line_proc_reserve_3</zorder>
+     <zorder>label_130</zorder>
+     <zorder>line_31</zorder>
+     <zorder>table_reserves_3</zorder>
+     <zorder>btn_pesq_reserve_3</zorder>
     </widget>
    </widget>
    <widget class="QPushButton" name="btn_reservas_2">
@@ -7017,10 +7507,72 @@ border-radius:5px</string>
      <string>📖  Visualizar Checks</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_129">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>12</y>
+      <width>21</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#ffffff</string>
+    </property>
+    <property name="text">
+     <string>OU</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="line_s_reserve">
+    <property name="geometry">
+     <rect>
+      <x>355</x>
+      <y>10</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="tabletTracking">
+     <bool>false</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::WheelFocus</enum>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::DefaultContextMenu</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#0f0f3a;
+color: #ffffff;
+border-radius:5px</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="maxLength">
+     <number>32766</number>
+    </property>
+    <property name="frame">
+     <bool>false</bool>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Normal</enum>
+    </property>
+    <property name="placeholderText">
+     <string>Buscar por Reserva</string>
+    </property>
+    <property name="cursorMoveStyle">
+     <enum>Qt::VisualMoveStyle</enum>
+    </property>
+    <property name="clearButtonEnabled">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <zorder>tabWidget</zorder>
    <zorder>col_status</zorder>
    <zorder>col_opcoes</zorder>
    <zorder>label</zorder>
-   <zorder>line_s_client_reserve</zorder>
+   <zorder>line_s_client</zorder>
    <zorder>label_6</zorder>
    <zorder>btn_reservas</zorder>
    <zorder>btn_cadastro_h</zorder>
@@ -7037,7 +7589,8 @@ border-radius:5px</string>
    <zorder>btn_voltar_login</zorder>
    <zorder>btn_reservas_2</zorder>
    <zorder>btn_visu_checks</zorder>
-   <zorder>tabWidget</zorder>
+   <zorder>label_129</zorder>
+   <zorder>line_s_reserve</zorder>
   </widget>
  </widget>
  <resources/>
