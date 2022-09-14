@@ -654,8 +654,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                             self.line_checkin_email.setText(dados[0][8])
                             self.line_checkin_contact.setText(dados[0][9])
                             self.line_checkin_cpf_2.setText(dados[0][5])
-                            self.line_checkin_reserva_data_e.set(dados_e_conv)
-                            self.line_checkin_reserva_data_s.set(dados_s_conv)
+                            self.line_checkin_reserva_data_e.setText(dados_e_conv)
+                            self.line_checkin_reserva_data_s.setText(dados_s_conv)
 
                         
                         # Verificação da data da reserva
