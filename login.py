@@ -5,7 +5,7 @@ from PyQt5.QtCore import QCoreApplication
 from PyQt5.Qt import Qt
 from styles.login_window import *
 from time import sleep
-from modules.utils import conectar, desconectar
+from modules.utils import conectar, desconectar, database, _user, _password
 
 class LoginPage(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -31,7 +31,7 @@ class LoginPage(QMainWindow, Ui_MainWindow):
             self.go_mainpage()
 
     def go_mainpage(self):
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
         usuario = self.scr_usuario.text()

@@ -68,7 +68,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../Imagens/Entrada.png</pixmap>
+     <pixmap>../Images/Entrada.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -117,7 +117,7 @@ border-radius:8px;</string>
       <x>220</x>
       <y>280</y>
       <width>241</width>
-      <height>171</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -215,25 +215,6 @@ padding-bottom:7px;</string>
      <string>CONTROLE DE RESERVAS</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_recupera">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>420</y>
-      <width>171</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>Esqueceu o Usuário ou Senha?</string>
-    </property>
-   </widget>
    <zorder>columnView</zorder>
    <zorder>columnView_3</zorder>
    <zorder>columnView_2</zorder>
@@ -243,7 +224,6 @@ padding-bottom:7px;</string>
    <zorder>btn_login</zorder>
    <zorder>label_4</zorder>
    <zorder>label</zorder>
-   <zorder>btn_recupera</zorder>
   </widget>
  </widget>
  <resources/>

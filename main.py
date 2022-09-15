@@ -7,7 +7,7 @@ from styles.main_window import *
 from datetime import date, datetime
 from modules.cpf_validator import valida_CPF
 from modules.email_reserva import reserv_email
-from modules.utils import conectar, desconectar, find_cep, verificar_email
+from modules.utils import conectar,desconectar, find_cep, init_configurations, verificar_email, database, _user, _password, _user, _password
 from pandas import date_range
 
 class Main_Page(QMainWindow, Ui_MainWindow):
@@ -17,14 +17,21 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.setFixedSize(1114,650)
         self.dt = datetime.now()
 
-        # Criação das tabelas iniciais:
-        self.conn = conectar()
+        # Configuração inicial:
+        self.conn = init_configurations(_user, _password)
+        self.curs_or = self.conn.cursor()
+
+        self.curs_or.execute(f'CREATE DATABASE IF NOT EXISTS {database}')
+
+        desconectar(self.conn)
+
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
         self.curs_or.execute('CREATE TABLE IF NOT EXISTS usuarios ('
                         'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,'
-                        'usuario VARCHAR(50) NOT NULL,'
-                        'senha VARCHAR(50) NOT NULL'
+                        'usuario VARCHAR(30) NOT NULL,'
+                        'senha VARCHAR(30) NOT NULL'
                         ')')
         self.curs_or.execute('CREATE TABLE IF NOT EXISTS clientes ('
                         'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
@@ -37,26 +44,50 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         'bairro VARCHAR(50) NOT NULL,'
                         'cidade VARCHAR(50) NOT NULL,'
                         'cep VARCHAR(50) NOT NULL,'
-                        'uf VARCHAR(50) NOT NULL,'
-                        'email VARCHAR(50) NOT NULL,'
-                        'contato VARCHAR(50) NOT NULL,'
+                        'uf VARCHAR(5) NOT NULL,'
+                        'email VARCHAR(40) NOT NULL,'
+                        'contato VARCHAR(20) NOT NULL,'
                         'complemento VARCHAR(100) NOT NULL'
+                        ')')
+        self.curs_or.execute('CREATE TABLE IF NOT EXISTS quartos ('
+                        'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
+                        'tipo_quarto VARCHAR(45) NOT NULL,'
+                        'quarto INT NOT NULL,'
+                        'data_entrada DATE NOT NULL,'
+                        'data_saida DATE NOT NULL,'
+                        'ignorado BOOLEAN NOT NULL'
                         ')')
         self.curs_or.execute('CREATE TABLE IF NOT EXISTS reservas ('
                         'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
                         'qtde_pessoas INT NOT NULL,'
-                        'data_entrada INT NOT NULL,'
-                        'data_saida DATE NOT NULL,'
                         'forma_pagamento VARCHAR(50) NOT NULL,'
                         'obs VARCHAR(200) NOT NULL,'
-                        'quarto VARCHAR (5) NOT NULL,'
                         'ativa BOOLEAN NOT NULL,'
-                        'id_cliente INT NULL,'
-                        'FOREIGN KEY (id_cliente) REFERENCES clientes(id)'
+                        'id_cliente INT NOT NULL,'
+                        'id_quarto INT NOT NULL,'
+                        'perm_inativo BOOLEAN NOT NULL,'
+                        'FOREIGN KEY (id_cliente) REFERENCES clientes(id),'
+                        'FOREIGN KEY (id_quarto) REFERENCES quartos(id)'
+                        ')')
+        self.curs_or.execute('CREATE TABLE IF NOT EXISTS checkins ('
+                        'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
+                        'id_reserva INT NOT NULL,'
+                        'data_hora_checkin DATETIME NOT NULL,'
+                        'FOREIGN KEY (id_reserva) REFERENCES reservas(id)'
+                        ')')
+        self.curs_or.execute('CREATE TABLE IF NOT EXISTS checkouts ('
+                        'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
+                        'id_checkin INT NOT NULL,'
+                        'data_hora_checkout DATETIME NOT NULL,'
+                        'diarias_cumpridas INT NOT NULL,'
+                        'FOREIGN KEY (id_checkin) REFERENCES checkins(id)'
                         ')')
 
+        self.curs_or.execute('INSERT IGNORE INTO usuarios (id, usuario, senha) VALUES (1, 1, 1)')
+
+        self.conn.commit()
         desconectar(self.conn)
-        
+
         # Setar Visibilidade de Labels para False:
         self.set_labels()
 
@@ -298,7 +329,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             c.setVisible(False)
     
     def set_checkboxes(self):
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
         consulta = f"""SELECT q.quarto 
@@ -348,7 +379,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.current_tab = self.tabWidget.currentIndex()
 
     def table_click(self, mode):
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
         
         if mode == 1:
@@ -409,7 +440,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
     def label_room_click(self, mode):
         try:
-            self.conn = conectar()
+            self.conn = conectar(database, _user, _password)
             self.curs_or = self.conn.cursor()
             
             if mode == 1:
@@ -463,7 +494,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 i.clear()
 
     def update_indicators(self):
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
         consulta = self.curs_or.execute("""SELECT * FROM reservas WHERE ativa=0 AND perm_inativo=0""")
@@ -475,7 +506,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         desconectar(self.conn)
 
     def verify_perm_inactive(self):
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
         self.curs_or.execute(f"""UPDATE reservas AS r INNER JOIN quartos AS q
@@ -516,7 +547,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             self.line_proc_reserve_3.clear()
 
     def consulta_banco(self, mode):
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
         if mode == 1:
@@ -604,7 +635,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         desconectar(self.conn)
 
     def verifica_banco_r(self, mode):
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
         self.temp_reserve_status = False
@@ -1028,7 +1059,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
     def insert_checkin(self):
         
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
         
         self.curs_or.execute(f"""INSERT INTO checkins (
@@ -1052,7 +1083,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
     def insert_checkout(self):
 
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
         self.curs_or.execute(f"""INSERT INTO checkouts (
@@ -1085,7 +1116,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 end: data de saída
                 tipo_quarto: tipo de quarto, baseado na quantidade de hóspedes
         """
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
         quartos_p = (11,12,13,14,15,21,22,23,24,25,31,32,33,34,35)
@@ -1167,7 +1198,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             c2.clear()
 
     def insert_reserva(self):
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
         # Definição do campo id_cliente
@@ -1227,7 +1258,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         self.insert_quartos(date_re, date_sa, tipo_quarto)
 
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
         self.curs_or.execute('SELECT id FROM quartos ORDER BY id DESC LIMIT 1')
@@ -1260,7 +1291,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             c1.clear()
 
     def insert_client(self):
-        self.conn = conectar()
+        self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
         if valida_CPF(self.line_cpf.text()) == True:

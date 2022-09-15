@@ -5,13 +5,27 @@ import datetime
 from pandas import date_range
 
 # Conexão e Desconexão com Banco de Dados
-def conectar():
+
+database='booking_manager'
+_user='root'
+_password=''
+def init_configurations(_user, _password):
     try:
         conn = MySQLdb.connect(
-            db = 'booking_manager_test',
             host = 'localhost',
-            user = 'belgamo',
-            password = '123')
+            user = _user,
+            password = _password)
+        return conn
+    except MySQLdb.Error as e:
+        print(f'Erro na conexão do MySQL Server ({e})')
+
+def conectar(datab, _user, _password):
+    try:
+        conn = MySQLdb.connect(
+            db = datab,
+            host = 'localhost',
+            user = _user,
+            password = _password)
         return conn
     except MySQLdb.Error as e:
         print(f'Erro na conexão do MySQL Server ({e})')
