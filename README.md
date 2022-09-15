@@ -34,7 +34,7 @@ Crie um usuário de sua escolha.
 
 Para as configurações iniciais, acesse o arquivo **"utils"**.
 
-- Por padrão o usuário é **"root"**. Ao criar um usuário diferente, altere o campo `user=` para o usuário criado. Caso tenha alterado a senha padrão de **"root"** ou criado um novo usuário, altere o campo `_password=`
+- Por padrão o usuário é **"root"**. Ao criar um usuário diferente, altere o campo `user=` para o usuário criado. Caso tenha alterado a senha padrão de **"root"** ou criado um novo usuário, altere o campo `_password=`.
 - Caso necessite, altere o nome do banco de dados para um de sua escolha, por padrão o banco é definido como **"booking_manager"**.
 
 Bibliotecas utilizadas (instalar antes de iniciar):
@@ -72,7 +72,7 @@ _Nota: Somente estes parâmetros são costumizáveis, alterar qualquer outra pro
 - Checagem de CPF e endereços válidos no cadastro de hóspedes;
 - Verificação e atribuição automática de quartos disponíveis para as datas estipuladas no ato da reserva;
 - Verificações para Check-ins e Check-outs realizados fora das datas previstas de entrada e saída, respectivamente;
-- Invalidação automática da reserva, caso o check-in não seja feito dentro da data entrada estipulada;
+- Invalidação automática da reserva, caso o check-in não seja feito dentro da data de entrada estipulada;
 
 ## Demonstrativo
 
@@ -111,6 +111,6 @@ _Nota: Somente estes parâmetros são costumizáveis, alterar qualquer outra pro
   <img src="https://res.cloudinary.com/sigbel/image/upload/v1663195041/projects/booking_simulator/visu_checks_v6ayly.png" alt="Logo" title="Logo title">
 </p>
 
-_Nota: Todas os dados contidos nas imagens são **fictícios**, sendo meramente representados com a finalidade de ilustrar o funcionamento do aplicativo._
+_Nota: Todos os dados contidos nas imagens são **fictícios**, sendo meramente representados com a finalidade de ilustrar o funcionamento do aplicativo._
 
 
