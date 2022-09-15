@@ -26,7 +26,7 @@
 - [Funcionalidades](#funcionalidades)
 - [Demonstrativo](#demonstrativo)
 
-# Cuidados Iniciais
+## Cuidados Iniciais
 
 Instale o MySql para prosseguir com os próximos passos, todos os downloads da versão comunitária estão presentes em [MySQL Community Downloads](https://dev.mysql.com/downloads/). Caso necessite de outras versões pode adquiri-las em [MySQL Downloads](https://www.mysql.com/downloads/).
 
@@ -42,7 +42,7 @@ Bibliotecas utilizadas (instalar antes de iniciar):
 
 _Nota: Somente estes parâmetros são costumizáveis, alterar qualquer outra propriedade resultará em erros na inicialização._
 
-### Interfaces
+## Interfaces
 - ##### Login
   - Interface inicial com login, dispondo de verificação de usuário e senha.
 
@@ -67,14 +67,14 @@ _Nota: Somente estes parâmetros são costumizáveis, alterar qualquer outra pro
     - Contadores de reservas, quartos dispoíveis e quartos ocupados;
     - Barras de busca de reserva e hóspedes.
 
-### Funcionalidades
+## Funcionalidades
 
 - Checagem de CPF e endereços válidos no cadastro de hóspedes;
 - Verificação e atribuição automática de quartos disponíveis para as datas estipuladas no ato da reserva;
 - Verificações para Check-ins e Check-outs realizados fora das datas previstas de entrada e saída, respectivamente;
 - Invalidação automática da reserva, caso o check-in não seja feito dentro da data entrada estipulada;
 
-### Demonstrativo
+## Demonstrativo
 
 
 
