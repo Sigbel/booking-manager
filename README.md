@@ -20,6 +20,7 @@
     <a href="https://github.com/sigbel/Booking_Manager/issues/new/choose">Solicitar recursos</a>
   </p>
 
+
 # Tópicos
 
 - [Cuidados Iniciais](#cuidados-iniciais)
@@ -34,7 +35,7 @@ Crie um usuário de sua escolha.
 
 Para as configurações iniciais, acesse o arquivo **"utils"**.
 
-- Por padrão o usuário é **"root"**. Ao criar um usuário diferente, altere o campo `user=` para o usuário criado. Caso tenha alterado a senha padrão de **"root"** ou criado um novo usuário, altere o campo `_password=`.
+- Por padrão o usuário é **"root"**. Ao criar um usuário diferente, altere o campo `_user=` para o usuário criado. Caso tenha alterado a senha padrão de **"root"** ou criado um novo usuário, altere o campo `_password=`.
 - Caso necessite, altere o nome do banco de dados para um de sua escolha, por padrão o banco é definido como **"booking_manager"**.
 
 Bibliotecas utilizadas (instalar antes de iniciar):
