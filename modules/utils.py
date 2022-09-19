@@ -1,14 +1,12 @@
 import MySQLdb
 import pycep_correios
 import re
-import datetime
-from pandas import date_range
 
 # Conexão e Desconexão com Banco de Dados
 
 database='booking_manager'
-_user='root'
-_password=''
+_user='Belgamo'
+_password='1234'
 def init_configurations(_user, _password):
     try:
         conn = MySQLdb.connect(

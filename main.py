@@ -4,9 +4,8 @@ import login
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem, QCheckBox
 from PyQt5.QtCore import Qt
 from styles.main_window import *
-from datetime import date, datetime
+from datetime import datetime
 from modules.cpf_validator import valida_CPF
-from modules.email_reserva import reserv_email
 from modules.utils import conectar,desconectar, find_cep, init_configurations, verificar_email, database, _user, _password, _user, _password
 from pandas import date_range
 
@@ -17,13 +16,16 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.setFixedSize(1114,650)
         self.dt = datetime.now()
 
-        # Configuração inicial:
+        # --------------- Configurações Iniciais ---------------
+        # Geração do Banco de Dados:
         self.conn = init_configurations(_user, _password)
         self.curs_or = self.conn.cursor()
 
         self.curs_or.execute(f'CREATE DATABASE IF NOT EXISTS {database}')
 
         desconectar(self.conn)
+
+        # Geração das Tabelas Inicias do Banco de Dados
 
         self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
@@ -55,17 +57,17 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         'quarto INT NOT NULL,'
                         'data_entrada DATE NOT NULL,'
                         'data_saida DATE NOT NULL,'
-                        'ignorado BOOLEAN NOT NULL'
+                        'ignorado BOOLEAN NOT NULL DEFAULT 0'
                         ')')
         self.curs_or.execute('CREATE TABLE IF NOT EXISTS reservas ('
                         'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
                         'qtde_pessoas INT NOT NULL,'
                         'forma_pagamento VARCHAR(50) NOT NULL,'
                         'obs VARCHAR(200) NOT NULL,'
-                        'ativa BOOLEAN NOT NULL,'
+                        'ativa BOOLEAN NOT NULL DEFAULT 0,'
                         'id_cliente INT NOT NULL,'
                         'id_quarto INT NOT NULL,'
-                        'perm_inativo BOOLEAN NOT NULL,'
+                        'perm_inativo BOOLEAN NOT NULL DEFAULT 0,'
                         'FOREIGN KEY (id_cliente) REFERENCES clientes(id),'
                         'FOREIGN KEY (id_quarto) REFERENCES quartos(id)'
                         ')')
@@ -88,6 +90,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.conn.commit()
         desconectar(self.conn)
 
+        # --------------- Inicialização do Programa ---------------
         # Setar Visibilidade de Labels para False:
         self.set_labels()
 
@@ -100,22 +103,22 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         # Preencher tabelas 
             # Table_Clients
         self.table_clients.repaint()
-        self.consulta_banco(1)
+        self.update_tables_data(1)
             # Table_Reserves
         self.table_reserves.repaint()
-        self.consulta_banco(2)
+        self.update_tables_data(2)
             # Table_Checkin
         self.table_checkin.repaint()
-        self.consulta_banco(3)
+        self.update_tables_data(3)
             # Table_Reserves_2
         self.table_reserves_2.repaint()
-        self.consulta_banco(4)
+        self.update_tables_data(4)
             # Table_Checkout
         self.table_checkout.repaint()
-        self.consulta_banco(5)
+        self.update_tables_data(5)
             # Table_Reserves_3
         self.table_reserves_3.repaint()
-        self.consulta_banco(6)
+        self.update_tables_data(6)
 
         # Atualiza indicadores
         self.update_indicators()
@@ -129,48 +132,48 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.verify_perm_inactive()
 
         # Botões Gerais 
-        self.btn_cadastro_h.clicked.connect(lambda: self.seleciona_tab(3, 0))
-        self.btn_cliente.clicked.connect(lambda: self.seleciona_tab(1, 3))
-        self.btn_quartos.clicked.connect(lambda: self.seleciona_tab(4, 1))
-        self.btn_reservas.clicked.connect(lambda: self.seleciona_tab(2, 0))
-        self.btn_reservas_2.clicked.connect(lambda: self.seleciona_tab(7, 4))
-        self.btn_checkin.clicked.connect(lambda: self.seleciona_tab(5, 2))
-        self.btn_checkout.clicked.connect(lambda: self.seleciona_tab(6, 0))
-        self.btn_visu_checks.clicked.connect(lambda: self.seleciona_tab(8, 5))
+        self.btn_cadastro_h.clicked.connect(lambda: self.select_tab_index(3, 0))
+        self.btn_cliente.clicked.connect(lambda: self.select_tab_index(1, 3))
+        self.btn_quartos.clicked.connect(lambda: self.select_tab_index(4, 1))
+        self.btn_reservas.clicked.connect(lambda: self.select_tab_index(2, 0))
+        self.btn_reservas_2.clicked.connect(lambda: self.select_tab_index(7, 4))
+        self.btn_checkin.clicked.connect(lambda: self.select_tab_index(5, 2))
+        self.btn_checkout.clicked.connect(lambda: self.select_tab_index(6, 0))
+        self.btn_visu_checks.clicked.connect(lambda: self.select_tab_index(8, 5))
         self.btn_voltar.clicked.connect(self.return_tab)
 
         # Botões (Cadastro de Hóspedes)
         self.btn_cadastrar_c.clicked.connect(self.insert_client)
-        self.btn_clear_all_c.clicked.connect(self.limpa_campos_clientes)
+        self.btn_clear_all_c.clicked.connect(self.clean_clients_fields)
 
         # Botões (Reservas)
-        self.btn_reservar.clicked.connect(self.insert_reserva)
-        self.btn_clear_all_r.clicked.connect(self.limpa_campos_reservas)
+        self.btn_reservar.clicked.connect(self.insert_reserve)
+        self.btn_clear_all_r.clicked.connect(self.clean_reserves_fields)
 
         # Botões (Visu Reserva)
         self.table_reserves.clicked.connect(lambda: self.table_click(2))
-        self.btn_pesq_reserve.clicked.connect(lambda: self.verifica_banco_r(5))
-        self.btn_refresh_tab7.clicked.connect(lambda: self.temp_atualiza_banco(2))
+        self.btn_pesq_reserve.clicked.connect(lambda: self.verify_database(5))
+        self.btn_refresh_tab7.clicked.connect(lambda: self.update_tables(2))
 
         # Botões (Clientes)
         self.table_clients.clicked.connect(lambda: self.table_click(1))
-        self.btn_pesq_client.clicked.connect(lambda: self.verifica_banco_r(3))
-        self.btn_refresh_tab1.clicked.connect(lambda: self.temp_atualiza_banco(1))
+        self.btn_pesq_client.clicked.connect(lambda: self.verify_database(3))
+        self.btn_refresh_tab1.clicked.connect(lambda: self.update_tables(1))
         
         # Botões (CheckIN)
-        self.btn_visu_reserv.clicked.connect(lambda: self.verifica_banco_r(2))
+        self.btn_visu_reserv.clicked.connect(lambda: self.verify_database(2))
         self.btn_checkin_2.clicked.connect(self.insert_checkin)
 
         # Botões (CheckOut)
-        self.btn_visu_reserv_2.clicked.connect(lambda: self.verifica_banco_r(4))
+        self.btn_visu_reserv_2.clicked.connect(lambda: self.verify_database(4))
         self.btn_checkout_2.clicked.connect(self.insert_checkout)
 
         # Botôes Visu_Checks
-        self.btn_refresh_tab8.clicked.connect(lambda: self.temp_atualiza_banco(3))
-        self.btn_pesq_checkin.clicked.connect(lambda: self.verifica_banco_r(6))
-        self.btn_pesq_reserve_2.clicked.connect(lambda: self.verifica_banco_r(7))
-        self.btn_pesq_checkout.clicked.connect(lambda: self.verifica_banco_r(8))
-        self.btn_pesq_reserve_3.clicked.connect(lambda: self.verifica_banco_r(9))
+        self.btn_refresh_tab8.clicked.connect(lambda: self.update_tables(3))
+        self.btn_pesq_checkin.clicked.connect(lambda: self.verify_database(6))
+        self.btn_pesq_reserve_2.clicked.connect(lambda: self.verify_database(7))
+        self.btn_pesq_checkout.clicked.connect(lambda: self.verify_database(8))
+        self.btn_pesq_reserve_3.clicked.connect(lambda: self.verify_database(9))
 
         # Extras (Alterações em QLines e outros Widgets)
         self.line_checkin_cpf.textChanged.connect(lambda: self.change_button(1))
@@ -188,31 +191,35 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.old_tab = 1
         self.current_tab = 1
 
+    # --------------- Funções do Principais ---------------
     def go_login(self):
+        """Função para chamada da tela de login"""
         login.iniciar()
 
     def keyPressEvent(self, event):
+        """Função para eventos com Enter e Return mediante guias ou focus selecionados
+                event: Key_Event"""
         if self.line_s_client.hasFocus():
             if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
-                self.seleciona_tab(1, 3)
+                self.select_tab_index(1, 3)
                 self.line_proc_client.setText(self.line_s_client.text())
-                self.verifica_banco_r(3)
+                self.verify_database(3)
         elif self.line_s_reserve.hasFocus():
             if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
-                self.seleciona_tab(7, 4)
+                self.select_tab_index(7, 4)
                 self.line_proc_reserve.setText(self.line_s_reserve.text())
-                self.verifica_banco_r(5)
+                self.verify_database(5)
         else:
             if (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.tabWidget.currentIndex() == 2:
-                self.verifica_banco_r(1)
+                self.verify_database(1)
             elif (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.tabWidget.currentIndex() == 5:
-                self.verifica_banco_r(2)
+                self.verify_database(2)
             elif (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.tabWidget.currentIndex() == 6:
-                self.verifica_banco_r(4)
+                self.verify_database(4)
             elif (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.tabWidget.currentIndex() == 1:
-                self.verifica_banco_r(3)
+                self.verify_database(3)
             elif (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.tabWidget.currentIndex() == 7:
-                self.verifica_banco_r(5)
+                self.verify_database(5)
             elif (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.tabWidget.currentIndex() == 3:
                 try: 
                     adress = find_cep(self.line_cep.text())
@@ -220,115 +227,101 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 except:
                     self.show_popup(4)
 
-    def show_popup(self, mode):
+    def show_popup(self, mode: int):
+        """Função para retornar caixas de diálogo mediante a determinados eventos
+                mode: número da mensagem"""
         msg = QMessageBox()
         if mode == 1:
             msg.setWindowTitle('Erro!')
             msg.setText('Todos os campos devem ser preenchidos!')
             msg.setIcon(QMessageBox.Warning)
-            msg.exec_()
         elif mode == 2:
             msg.setWindowTitle('Atenção')
             msg.setText('CPF ou Reserva não encontrado!')
             msg.setIcon(QMessageBox.Warning)
-            msg.exec_()
         elif mode == 3:
             msg.setWindowTitle('Informação')
             msg.setText('Cliente cadastrado com sucesso!')
             msg.setIcon(QMessageBox.Information)
-            msg.exec_()
         elif mode == 4:
             msg.setWindowTitle('Erro')
             msg.setText('CEP não encontrado ou incorreto!')
             msg.setIcon(QMessageBox.Warning)
-            msg.exec_()
         elif mode == 5:
             msg.setWindowTitle('Atenção')
             msg.setText('CPF inválido ou já em uso!')
             msg.setIcon(QMessageBox.Warning)
-            msg.exec_()
         elif mode == 6:
             msg.setWindowTitle('Atenção')
             msg.setText('Email inválido ou já em uso!')
             msg.setIcon(QMessageBox.Warning)
-            msg.exec_()
         elif mode == 7:
             msg.setWindowTitle('Atenção')
             msg.setText('Telefone para contato inválido ou já em uso !')
             msg.setIcon(QMessageBox.Warning)
-            msg.exec_()
         elif mode == 8:
             msg.setWindowTitle('Atenção')
             msg.setText('Já existe uma reserva para o cliente informado!')
             msg.setIcon(QMessageBox.Information)
-            msg.exec_()
         elif mode == 9:
             msg.setWindowTitle('Atenção')
             msg.setText('Nenhum quarto disponível para as datas informadas!')
             msg.setIcon(QMessageBox.Information)
-            msg.exec_()
         elif mode == 10:
             msg.setWindowTitle('Atenção')
             msg.setText('Número de hóspedes não pode ultrapassar 5!')
             msg.setIcon(QMessageBox.Warning)
-            msg.exec_()
         elif mode == 11:
             msg.setWindowTitle('Atenção')
             msg.setText('Reserva incluída com sucesso!')
             msg.setIcon(QMessageBox.Information)
-            msg.exec_()
         elif mode == 12:
             msg.setWindowTitle('Atenção')
             msg.setText('Datas incorretas!')
             msg.setIcon(QMessageBox.Information)
-            msg.exec_()
         elif mode == 13:
             msg.setWindowTitle('Atenção')
             msg.setText('Check-in realizado com sucesso!')
             msg.setIcon(QMessageBox.Information)
-            msg.exec_()
         elif mode == 14:
             msg.setWindowTitle('Atenção')
             msg.setText('Check-in já realizado para esta reserva!')
             msg.setIcon(QMessageBox.Information)
-            msg.exec_()
         elif mode == 15:
             msg.setWindowTitle('Atenção')
             msg.setText('A data de entrada é anterior a data atual.')
             msg.setInformativeText('Deseja continuar?')
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             msg.setIcon(QMessageBox.Information)
-            return msg.exec_()
         elif mode == 16:
             msg.setWindowTitle('Atenção')
             msg.setText('Reserva permanentemente inativa.')
             msg.setInformativeText('Check-in não feito na data de entrada ou check-out já realizado.')
             msg.setIcon(QMessageBox.Information)
-            msg.exec_()
         elif mode == 17:
             msg.setWindowTitle('Atenção')
             msg.setText('Check-out realizado com sucesso!')
             msg.setIcon(QMessageBox.Information)
-            msg.exec_()
         elif mode == 18:
             msg.setWindowTitle('Atenção')
             msg.setText('A data de saída é anterior a estipulada na reserva.')
             msg.setInformativeText('Deseja continuar?')
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             msg.setIcon(QMessageBox.Information)
-            return msg.exec_()
         elif mode == 19:
             msg.setWindowTitle('Atenção')
             msg.setText('Check-out já feito para essa reserva ou Check-in não realizado.')
             msg.setIcon(QMessageBox.Information)
-            msg.exec_()
+        return msg.exec_()
 
     def set_labels(self):
+        """Função para setar as visibilidades das labels de verificação na guia 'Cadastro de Hóspedes' para False"""
         labels = [self.test_cpf, self.test_contato, self.test_cep]
         for c in labels:
             c.setVisible(False)
     
     def set_checkboxes(self):
+        """Função para verificar quartos ocupados na guia 'Quartos'"""
         self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
@@ -354,7 +347,19 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         desconectar(self.conn)
 
-    def seleciona_tab(self, value: int, mode: int):
+    def set_adress(self, dados: list):
+        """Função para verificar e preencher QLine com base no CEP fornecido
+                dados: informação de endereço"""
+        self.line_adress.setText(dados["logradouro"])
+        self.line_district.setText(dados["bairro"])
+        self.line_city.setText(dados["cidade"])
+        self.combo_uf.setCurrentText(dados["uf"])
+        self.line_complement.setText(dados["complemento"])
+
+    def select_tab_index(self, value: int, mode: int):
+        """Função para selecionar a tab atual
+                value: index da página
+                mode: valor da operação para a página específica"""
         self.tabWidget.setCurrentIndex(value)
         self.old_tab = self.current_tab
         self.current_tab = value
@@ -366,19 +371,35 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         elif mode == 2:
             self.verify_perm_inactive()
         elif mode == 3:
-            self.temp_atualiza_banco(1)
+            self.update_tables(1)
         elif mode == 4:
-            self.temp_atualiza_banco(2)
+            self.update_tables(2)
         elif mode == 5:
-            self.temp_atualiza_banco(3)
+            self.update_tables(3)
             
     def return_tab(self):
+        """Função para retornar à tab anterior"""
         temp = self.tabWidget.currentIndex()
         self.tabWidget.setCurrentIndex(self.old_tab)
         self.old_tab = temp
         self.current_tab = self.tabWidget.currentIndex()
 
-    def table_click(self, mode):
+    def update_indicators(self):
+        """Função para atualizar os indicadores superiores com condições de quartos"""
+        self.conn = conectar(database, _user, _password)
+        self.curs_or = self.conn.cursor()
+
+        consulta = self.curs_or.execute("""SELECT * FROM reservas WHERE ativa=0 AND perm_inativo=0""")
+        self.cont_fila_res.setText(str(consulta))
+        consulta = self.curs_or.execute("""SELECT * FROM reservas WHERE ativa=1 AND perm_inativo=0""")
+        self.cont_ocup.setText(str(consulta))
+        self.cont_livre.setText(str(50-consulta))
+
+        desconectar(self.conn)
+
+    def table_click(self, mode: int):
+        """Função para inserir os valores das tabelas nas QLines correspondentes em cada guia
+                mode: valor da operação para a página específica"""
         self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
         
@@ -438,7 +459,9 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         desconectar(self.conn)
 
-    def label_room_click(self, mode):
+    def label_room_click(self, mode: int):
+        """Função para inserir os valores nas QLines correspondentes mediante clique no quarto escolhido
+                mode: valor da operação para a página específica"""
         try:
             self.conn = conectar(database, _user, _password)
             self.curs_or = self.conn.cursor()
@@ -473,7 +496,9 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 i.clear()
             return
 
-    def change_button(self, mode):
+    def change_button(self, mode: int):
+        """Função que reseta QLines e botões das guias check-in e check-out mediante a recusas nas janelas de pop-up
+                mode: valor da operação para a página específica"""
         if mode == 1:
             self.btn_checkin_2.setEnabled(0)
 
@@ -493,19 +518,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             for i in dados:
                 i.clear()
 
-    def update_indicators(self):
-        self.conn = conectar(database, _user, _password)
-        self.curs_or = self.conn.cursor()
-
-        consulta = self.curs_or.execute("""SELECT * FROM reservas WHERE ativa=0 AND perm_inativo=0""")
-        self.cont_fila_res.setText(str(consulta))
-        consulta = self.curs_or.execute("""SELECT * FROM reservas WHERE ativa=1 AND perm_inativo=0""")
-        self.cont_ocup.setText(str(consulta))
-        self.cont_livre.setText(str(50-consulta))
-
-        desconectar(self.conn)
-
     def verify_perm_inactive(self):
+        """Função para verificar os quartos que estão permanentemente inativos"""
         self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
@@ -516,37 +530,34 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.conn.commit()
         desconectar(self.conn)
 
-    def set_adress(self, dados):
-        self.line_adress.setText(dados["logradouro"])
-        self.line_district.setText(dados["bairro"])
-        self.line_city.setText(dados["cidade"])
-        self.combo_uf.setCurrentText(dados["uf"])
-        self.line_complement.setText(dados["complemento"])
-
-    def temp_atualiza_banco(self, mode):
+    def update_tables(self, mode: int):
+        """Função para atualizar as tabelas
+                mode: valor da operação para a página específica"""
         if mode == 1:
             self.table_clients.repaint()
-            self.consulta_banco(1)
+            self.update_tables_data(1)
             self.line_proc_client.clear()
         elif mode == 2:
             self.table_reserves.repaint()
-            self.consulta_banco(2)
+            self.update_tables_data(2)
             self.line_proc_reserve.clear()
         elif mode == 3:
             self.table_checkin.repaint()
             self.table_reserves_2.repaint()
             self.table_checkout.repaint()
             self.table_reserves_3.repaint()
-            self.consulta_banco(3)
-            self.consulta_banco(4)
-            self.consulta_banco(5)
-            self.consulta_banco(6)
+            self.update_tables_data(3)
+            self.update_tables_data(4)
+            self.update_tables_data(5)
+            self.update_tables_data(6)
             self.line_proc_checkin.clear()
             self.line_proc_reserve_2.clear()
             self.line_proc_checkout.clear()
             self.line_proc_reserve_3.clear()
 
-    def consulta_banco(self, mode):
+    def update_tables_data(self, mode: int):
+        """Função para atualizar os dados nas tabelas
+                mode: valor da operação para a página específica"""
         self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
@@ -631,10 +642,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                 for c1 in range(0,3):
                     self.table_reserves_3.setItem(c, c1, QTableWidgetItem(str(dados[c][c1])))
 
-        self.conn.commit()
         desconectar(self.conn)
 
-    def verifica_banco_r(self, mode):
+    def verify_database(self, mode: int):
+        """Funções para verificar e preencher QLines com base em informações de CPF ou Reserva
+                mode: valor da operação para a página específica"""
         self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
@@ -1058,7 +1070,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         desconectar(self.conn)
 
     def insert_checkin(self):
-        
+        """Função para inserir o check-in no banco de dados"""
         self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
         
@@ -1082,7 +1094,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.update_indicators()
 
     def insert_checkout(self):
-
+        """Função para inserir o check-out no banco de dados"""
         self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
@@ -1110,7 +1122,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         self.update_indicators()
 
-    def insert_quartos(self, start, end, tipo_quarto):
+    def insert_rooms(self, start: str, end: str, tipo_quarto: str):
         """Função para verificar disponibilidade de datas em cada quarto no banco de dados
                 start: data de entrada
                 end: data de saída
@@ -1186,7 +1198,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.conn.commit()
         desconectar(self.conn)
 
-    def limpa_campos_reservas(self):
+    def clean_reserves_fields(self):
+        """Função para limpar os campos da guia 'Criar Reserva'"""
         campos = [self.line_r_name, self.line_r_lastname, self.line_r_cpf, self.line_r_email, 
         self.line_r_contato, self.line_obs]
 
@@ -1197,7 +1210,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         for c2 in campos:
             c2.clear()
 
-    def insert_reserva(self):
+    def insert_reserve(self):
+        """Função para inserir uma reserva"""
         self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
@@ -1252,11 +1266,9 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             self.show_popup(10)
             return
 
-
-        self.conn.commit()
         desconectar(self.conn)
 
-        self.insert_quartos(date_re, date_sa, tipo_quarto)
+        self.insert_rooms(date_re, date_sa, tipo_quarto)
 
         self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
@@ -1281,7 +1293,8 @@ class Main_Page(QMainWindow, Ui_MainWindow):
 
         self.update_indicators()
 
-    def limpa_campos_clientes(self):
+    def clean_clients_fields(self):
+        """Função para limpar os campos da guia 'Cadastro de Hóspedes'"""
         campos = [self.line_name, self.line_lastname, self.line_cpf, self.line_adress, self.line_adress_number,
         self.line_district, self.line_city, self.line_cep, self.line_email, self.line_tel]
 
@@ -1291,9 +1304,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             c1.clear()
 
     def insert_client(self):
+        """Função para inserir hóspedes"""
         self.conn = conectar(database, _user, _password)
         self.curs_or = self.conn.cursor()
 
+        # Validação do CPF
         if valida_CPF(self.line_cpf.text()) == True:
             self.test_cpf.setVisible(False)
         else:
@@ -1301,6 +1316,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
             self.test_cpf.setVisible(True)
             return
 
+        # Validação do CEP
         if len(self.line_cep.text()) == 8:
             self.test_cep.setVisible(False)
         else:
@@ -1370,12 +1386,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         )
 
         self.show_popup(3)
-        self.limpa_campos_clientes()
+        self.clean_clients_fields()
         self.set_labels()
    
         self.conn.commit()
         desconectar(self.conn)
-
 
 if __name__ == '__main__':
     main_page = Main_Page()
