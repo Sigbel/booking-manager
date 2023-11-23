@@ -6,13 +6,8 @@ import re
 
 # Conexão e Desconexão com Banco de Dados
 database='booking_manager'
-<<<<<<< HEAD
 _user='root'
 _password='123'
-=======
-_user='Belgamo'
-_password='1234'
->>>>>>> b287fe32e6dcd14e462dc8ed612251001761b49c
 def init_configurations(_user, _password):
     try:
         conn = pymysql.connect(
