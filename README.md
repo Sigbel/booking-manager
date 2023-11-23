@@ -7,7 +7,7 @@
     <a href="https://github.com/Sigbel/Booking_Manager/issues">
       <img alt="Issues" src="https://img.shields.io/github/issues/sigbel/Booking_Manager?color=0088ff" />
     </a>
-    <a href="https://github.com/anuraghazra/github-readme-stats/pulls">
+    <a href="https://github.com/Sigbel/Booking_Manager/pulls">
       <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/sigbel/Booking_Manager?color=0088ff" />
     </a>
 
@@ -24,6 +24,7 @@
 # Tópicos
 
 - [Cuidados Iniciais](#cuidados-iniciais)
+- [Interfaces](#interfaces)
 - [Funcionalidades](#funcionalidades)
 - [Demonstrativo](#demonstrativo)
 
