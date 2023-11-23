@@ -1,5 +1,7 @@
 import sys
-import MySQLdb
+import pymysql
+pymysql.install_as_MySQLdb()
+
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.Qt import Qt

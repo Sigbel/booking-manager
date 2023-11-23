@@ -55,17 +55,17 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         'quarto INT NOT NULL,'
                         'data_entrada DATE NOT NULL,'
                         'data_saida DATE NOT NULL,'
-                        'ignorado BOOLEAN NOT NULL'
+                        'ignorado BOOLEAN NOT NULL DEFAULT 0'
                         ')')
         self.curs_or.execute('CREATE TABLE IF NOT EXISTS reservas ('
                         'id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,' 
                         'qtde_pessoas INT NOT NULL,'
                         'forma_pagamento VARCHAR(50) NOT NULL,'
                         'obs VARCHAR(200) NOT NULL,'
-                        'ativa BOOLEAN NOT NULL,'
+                        'ativa BOOLEAN NOT NULL DEFAULT 1,'
                         'id_cliente INT NOT NULL,'
                         'id_quarto INT NOT NULL,'
-                        'perm_inativo BOOLEAN NOT NULL,'
+                        'perm_inativo BOOLEAN NOT NULL DEFAULT 0,'
                         'FOREIGN KEY (id_cliente) REFERENCES clientes(id),'
                         'FOREIGN KEY (id_quarto) REFERENCES quartos(id)'
                         ')')
@@ -517,11 +517,11 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         desconectar(self.conn)
 
     def set_adress(self, dados):
-        self.line_adress.setText(dados["logradouro"])
-        self.line_district.setText(dados["bairro"])
-        self.line_city.setText(dados["cidade"])
+        self.line_adress.setText(dados["street"])
+        self.line_district.setText(dados["district"])
+        self.line_city.setText(dados["city"])
         self.combo_uf.setCurrentText(dados["uf"])
-        self.line_complement.setText(dados["complemento"])
+        self.line_complement.setText(dados["complement"])
 
     def temp_atualiza_banco(self, mode):
         if mode == 1:

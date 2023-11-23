@@ -631,7 +631,7 @@ border-radius:5px</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>4</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
