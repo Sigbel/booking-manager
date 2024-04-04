@@ -64,11 +64,7 @@ class Main_Page(QMainWindow, Ui_MainWindow):
                         'qtde_pessoas INT NOT NULL,'
                         'forma_pagamento VARCHAR(50) NOT NULL,'
                         'obs VARCHAR(200) NOT NULL,'
-<<<<<<< HEAD
-                        'ativa BOOLEAN NOT NULL DEFAULT 1,'
-=======
                         'ativa BOOLEAN NOT NULL DEFAULT 0,'
->>>>>>> b287fe32e6dcd14e462dc8ed612251001761b49c
                         'id_cliente INT NOT NULL,'
                         'id_quarto INT NOT NULL,'
                         'perm_inativo BOOLEAN NOT NULL DEFAULT 0,'
@@ -534,20 +530,9 @@ class Main_Page(QMainWindow, Ui_MainWindow):
         self.conn.commit()
         desconectar(self.conn)
 
-<<<<<<< HEAD
-    def set_adress(self, dados):
-        self.line_adress.setText(dados["street"])
-        self.line_district.setText(dados["district"])
-        self.line_city.setText(dados["city"])
-        self.combo_uf.setCurrentText(dados["uf"])
-        self.line_complement.setText(dados["complement"])
-
-    def temp_atualiza_banco(self, mode):
-=======
     def update_tables(self, mode: int):
         """Função para atualizar as tabelas
                 mode: valor da operação para a página específica"""
->>>>>>> b287fe32e6dcd14e462dc8ed612251001761b49c
         if mode == 1:
             self.table_clients.repaint()
             self.update_tables_data(1)
